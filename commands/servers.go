@@ -65,7 +65,7 @@ func Server() *Command {
 
 	serverCreateLongDesc := `Use this command to create a new Server. Required values are name, region, size, and image. For example, to create an Ubuntu 20.04 with 1 vCPU and 1 GB of RAM in the Sydney region, run:
 
-	bl compute server create --image ubuntu-20-04-lts --size a-2010 --region syd example.com
+	bl compute server create --image ubuntu-20-04-lts --size std-min --region syd example.com
 `
 
 	cmdServerCreate := CmdBuilder(cmd, RunServerCreate, "create <server-name>...", "Create a new Server", serverCreateLongDesc, Writer,
@@ -76,7 +76,7 @@ func Server() *Command {
 	AddBoolFlag(cmdServerCreate, blcli.ArgCommandWait, "", false, "Wait for Server creation to complete before returning")
 	AddStringFlag(cmdServerCreate, blcli.ArgRegionSlug, "", "", "A slug indicating the region where the Server will be created (e.g. `syd`). Run `bl compute region list` for a list of valid regions.",
 		requiredOpt())
-	AddStringFlag(cmdServerCreate, blcli.ArgSizeSlug, "", "", "A slug indicating the size of the Server (e.g. `a-2010`). Run `bl compute size list` for a list of valid sizes.",
+	AddStringFlag(cmdServerCreate, blcli.ArgSizeSlug, "", "", "A slug indicating the size of the Server (e.g. `std-min`). Run `bl compute size list` for a list of valid sizes.",
 		requiredOpt())
 	AddBoolFlag(cmdServerCreate, blcli.ArgBackups, "", false, "Enables backups for the Server")
 	AddBoolFlag(cmdServerCreate, blcli.ArgIPv6, "", false, "Enables IPv6 support and assigns an IPv6 address")

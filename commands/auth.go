@@ -46,7 +46,7 @@ func retrieveUserTokenFromCommandLine() (string, error) {
 		return "", ErrUnknownTerminal
 	}
 
-	fmt.Print("Please authenticate bl for use with your BinaryLane account. You can generate a token in the control panel at https://home.binarylane.com.au/account\n\n")
+	fmt.Print("Please authenticate bl for use with your BinaryLane account. You can generate a token in the control panel at https://home.binarylane.com.au/api-info\n\n")
 	fmt.Print("Enter your access token: ")
 	passwdBytes, err := terminal.ReadPassword(int(syscall.Stdin))
 	if err != nil {
@@ -73,7 +73,7 @@ func Auth() *Command {
 		Command: &cobra.Command{
 			Use:   "auth",
 			Short: "Display commands for authenticating bl with an account",
-			Long: `The ` + "`" + `bl auth` + "`" + ` commands allow you to authenticate bl for use with your BinaryLane account using tokens that you generate in the control panel at https://home.binarylane.com.au/account
+			Long: `The ` + "`" + `bl auth` + "`" + ` commands allow you to authenticate bl for use with your BinaryLane account using tokens that you generate in the control panel at https://home.binarylane.com.au/api-info
 
 If you work with a just one account, you can call ` + "`" + `bl auth init` + "`" + ` and supply the token when prompted. This creates an authentication context named ` + "`" + `default` + "`" + `.
 
@@ -83,7 +83,7 @@ To switch between multiple BinaryLane accounts, including team accounts, you can
 
 	cmdBuilderWithInit(cmd, RunAuthInit(retrieveUserTokenFromCommandLine), "init", "Initialize bl to use a specific account", `This command allows you to initialize bl with a token that allows it to query and manage your account details and resources.
 
-You will need an API token, which you can generate in the control panel at https://home.binarylane.com.au/account
+You will need an API token, which you can generate in the control panel at https://home.binarylane.com.au/api-info
 
 You can provide a name to this initialization via the `+"`"+`--context`+"`"+` flag, and then it will be saved as an "authentication context". Authentication contexts are accessible via `+"`"+`bl auth switch`+"`"+`, which re-initializes bl, or by providing the `+"`"+`--context`+"`"+` flag when using any bl command (to specify that auth context for just one command). This enables you to use multiple BinaryLane accounts with bl, or tokens that have different authentication scopes.
 
