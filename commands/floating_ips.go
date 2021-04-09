@@ -78,7 +78,7 @@ func RunFloatingIPCreate(c *CmdConfig) error {
 	}
 
 	req := &binarylane.FloatingIPCreateRequest{
-		Region:    region,
+		Region:   region,
 		ServerID: serverID,
 	}
 

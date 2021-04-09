@@ -100,8 +100,8 @@ var (
 	testFloatingIP        = bl.FloatingIP{
 		FloatingIP: &binarylane.FloatingIP{
 			Server: testServer.Server,
-			Region:  testServer.Region,
-			IP:      "127.0.0.1",
+			Region: testServer.Region,
+			IP:     "127.0.0.1",
 		},
 	}
 	testFloatingIPList = bl.FloatingIPs{testFloatingIP}

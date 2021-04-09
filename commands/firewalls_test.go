@@ -59,7 +59,7 @@ func TestFirewallCreate(t *testing.T) {
 					},
 				},
 			},
-			Tags:       []string{"backend"},
+			Tags:      []string{"backend"},
 			ServerIDs: []int{1, 2},
 		}
 		tm.firewalls.EXPECT().Create(firewallCreateRequest).Return(&testFirewall, nil)
@@ -224,7 +224,7 @@ func TestFirewallAddRules(t *testing.T) {
 				Protocol:  "tcp",
 				PortRange: "8080",
 				Sources: &binarylane.Sources{
-					Tags:       []string{"backend"},
+					Tags:      []string{"backend"},
 					ServerIDs: []int{1, 2, 3},
 				},
 			},

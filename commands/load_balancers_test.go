@@ -84,9 +84,9 @@ func TestLoadBalancerCreate(t *testing.T) {
 	withTestClient(t, func(config *CmdConfig, tm *tcMocks) {
 		vpcID := 2
 		r := binarylane.LoadBalancerRequest{
-			Name:       "lb-name",
-			Region:     "nyc1",
-			SizeSlug:   "lb-small",
+			Name:      "lb-name",
+			Region:    "nyc1",
+			SizeSlug:  "lb-small",
 			ServerIDs: []int{1, 2},
 			StickySessions: &binarylane.StickySessions{
 				Type: "none",
@@ -130,8 +130,8 @@ func TestLoadBalancerUpdate(t *testing.T) {
 	withTestClient(t, func(config *CmdConfig, tm *tcMocks) {
 		lbID := 1
 		r := binarylane.LoadBalancerRequest{
-			Name:       "lb-name",
-			Region:     "nyc1",
+			Name:      "lb-name",
+			Region:    "nyc1",
 			ServerIDs: []int{1, 2},
 			StickySessions: &binarylane.StickySessions{
 				Type:             "cookies",
