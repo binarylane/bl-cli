@@ -11,7 +11,7 @@ cd "$(mktemp -d)"
 go get -u github.com/digitalocean/github-changelog-generator
 
 tfile=$(mktemp)
-github-changelog-generator -org digitalocean -repo doctl >"$tfile"
+github-changelog-generator -org binarylane -repo bl-cli >"$tfile"
 
 cd "$current_dir"
 goreleaser --rm-dist --release-notes="$tfile"

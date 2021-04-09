@@ -1,7 +1,7 @@
-project_name: doctl
+project_name: bl
 
 builds:
-- main: ./cmd/doctl/main.go
+- main: ./cmd/bl/main.go
   env:
   - CGO_ENABLED=0
   - GO111MODULE=on
@@ -9,11 +9,11 @@ builds:
   - -mod=vendor
   - -v
   ldflags:
-  - -X github.com/digitalocean/doctl.Build={{ .ShortCommit }}
-  - -X github.com/digitalocean/doctl.Major={{ .Major }}
-  - -X github.com/digitalocean/doctl.Minor={{ .Minor }}
-  - -X github.com/digitalocean/doctl.Patch={{ .Patch }}
-  - -X github.com/digitalocean/doctl.Label=release
+  - -X github.com/binarylane/bl-cli.Build={{ .ShortCommit }}
+  - -X github.com/binarylane/bl-cli.Major={{ .Major }}
+  - -X github.com/binarylane/bl-cli.Minor={{ .Minor }}
+  - -X github.com/binarylane/bl-cli.Patch={{ .Patch }}
+  - -X github.com/binarylane/bl-cli.Label=release
   goos:
   - windows
   - darwin
@@ -23,7 +23,7 @@ builds:
     goarch: 386
 
 archives:
-- name_template: "doctl-{{ .Version }}-{{ .Os }}-{{ .Arch }}"
+- name_template: "bl-cli-{{ .Version }}-{{ .Os }}-{{ .Arch }}"
   format_overrides:
   - goos: windows
     format: zip
@@ -31,19 +31,12 @@ archives:
   wrap_in_directory: false
 
 checksum:
-  name_template: "doctl-{{ .Version }}-checksums.sha256"
-
-dockers:
-- dockerfile: Dockerfile.goreleaser
-  image_templates:
-  - "digitalocean/doctl:latest"
-  - "digitalocean/doctl:{{ .Major }}-latest"
-  - "digitalocean/doctl:{{ .Version }}"
+  name_template: "bl-cli-{{ .Version }}-checksums.sha256"
 
 release:
   github:
-    owner: digitalocean
-    name: doctl
+    owner: binarylane
+    name: bl-cli
 
 changelog:
   skip: true
