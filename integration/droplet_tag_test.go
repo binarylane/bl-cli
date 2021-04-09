@@ -34,7 +34,7 @@ var _ = suite("compute/droplet/tag", func(t *testing.T, when spec.G, it spec.S) 
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/droplets":
+			case "/v2/servers":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)

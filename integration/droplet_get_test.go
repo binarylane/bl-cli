@@ -36,7 +36,7 @@ var _ = suite("compute/droplet/get", func(t *testing.T, when spec.G, it spec.S) 
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/droplets/5555":
+			case "/v2/servers/5555":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer special-broken" {
 					w.WriteHeader(http.StatusUnauthorized)

@@ -42,7 +42,7 @@ var _ = suite("auth/init", func(t *testing.T, when spec.G, it spec.S) {
 				}
 
 				w.WriteHeader(http.StatusUnauthorized)
-			case "/v2/droplets/1":
+			case "/v2/servers/1":
 				token := req.Header.Get("Authorization")
 				if token != "Bearer second-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -199,7 +199,7 @@ context: default
 				"-u", server.URL,
 				"--config", testConfig,
 				"compute",
-				"droplet",
+				"server",
 				"delete",
 				"1",
 				"-f",
@@ -213,7 +213,7 @@ context: default
 		})
 	})
 
-	when("the DIGITALOCEAN_CONTEXT variable is set", func() {
+	when("the BINARYLANE_CONTEXT variable is set", func() {
 		it("uses that context for commands", func() {
 			var testConfigBytes = []byte(`access-token: first-token
 auth-contexts:
@@ -233,7 +233,7 @@ context: default
 				"--config", testConfig,
 			)
 			cmd.Env = os.Environ()
-			cmd.Env = append(cmd.Env, "DIGITALOCEAN_CONTEXT=next")
+			cmd.Env = append(cmd.Env, "BINARYLANE_CONTEXT=next")
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, string(output))

@@ -31,7 +31,7 @@ var _ = suite("compute/droplet/create", func(t *testing.T, when spec.G, it spec.
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/droplets":
+			case "/v2/servers":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -59,7 +59,7 @@ var _ = suite("compute/droplet/create", func(t *testing.T, when spec.G, it spec.
 				w.Write([]byte(dropletCreateResponse))
 			case "/poll-for-droplet":
 				w.Write([]byte(actionCompletedResponse))
-			case "/v2/droplets/777":
+			case "/v2/servers/777":
 				// we don't really need another fake droplet here
 				// since we've successfully tested all the behavior
 				// at this point

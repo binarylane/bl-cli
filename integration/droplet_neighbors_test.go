@@ -36,7 +36,7 @@ var _ = suite("compute/droplet/neighbors", func(t *testing.T, when spec.G, it sp
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/droplets/1111/neighbors":
+			case "/v2/servers/1111/neighbors":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-extra-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -75,8 +75,8 @@ var _ = suite("compute/droplet/neighbors", func(t *testing.T, when spec.G, it sp
 			)
 
 			cmd.Env = append(os.Environ(),
-				"DIGITALOCEAN_ACCESS_TOKEN=some-extra-token",
-				fmt.Sprintf("DIGITALOCEAN_API_URL=%s", server.URL),
+				"BINARYLANE_ACCESS_TOKEN=some-extra-token",
+				fmt.Sprintf("BINARYLANE_API_URL=%s", server.URL),
 			)
 
 			output, err := cmd.CombinedOutput()
@@ -96,8 +96,8 @@ var _ = suite("compute/droplet/neighbors", func(t *testing.T, when spec.G, it sp
 			)
 
 			cmd.Env = append(os.Environ(),
-				fmt.Sprintf("DIGITALOCEAN_API_URL=%s", server.URL),
-				fmt.Sprintf("DIGITALOCEAN_CONFIG=%s", configPath),
+				fmt.Sprintf("BINARYLANE_API_URL=%s", server.URL),
+				fmt.Sprintf("BINARYLANE_CONFIG=%s", configPath),
 			)
 
 			output, err := cmd.CombinedOutput()

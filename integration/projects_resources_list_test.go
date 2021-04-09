@@ -124,7 +124,7 @@ do:floatingip:1    ok
       "urn": "do:droplet:1",
       "assigned_at": "2018-09-28T19:26:37Z",
       "links": {
-        "self": "https://api.digitalocean.com/v2/droplets/1"
+        "self": "https://api.digitalocean.com/v2/servers/1"
       },
       "status": "ok"
     },

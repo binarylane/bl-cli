@@ -31,23 +31,23 @@ var _ = suite("compute/droplet-action", func(t *testing.T, when spec.G, it spec.
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			pathMatch := map[string]request{
-				"/v2/droplets/34/actions":      {method: http.MethodPost, body: `{"type":"shutdown"}`},
-				"/v2/droplets/4444/actions":    {method: http.MethodPost, body: `{"type":"disable_backups"}`},
-				"/v2/droplets/999/actions":     {method: http.MethodPost, body: `{"type":"reboot"}`},
-				"/v2/droplets/48/actions":      {method: http.MethodPost, body: `{"name":"best-snapshot","type":"snapshot"}`},
-				"/v2/droplets/112/actions":     {method: http.MethodPost, body: `{"name":"yes","type":"rename"}`},
-				"/v2/droplets/383/actions":     {method: http.MethodPost, body: `{"image":1234,"type":"restore"}`},
-				"/v2/droplets/11234/actions":   {method: http.MethodPost, body: `{"type":"power_off"}`},
-				"/v2/droplets/8/actions":       {method: http.MethodPost, body: `{"type":"power_cycle"}`},
-				"/v2/droplets/234/actions":     {method: http.MethodPost, body: `{"type":"password_reset"}`},
-				"/v2/droplets/591/actions":     {method: http.MethodPost, body: `{"type":"enable_private_networking"}`},
-				"/v2/droplets/247/actions":     {method: http.MethodPost, body: `{"type":"enable_ipv6"}`},
-				"/v2/droplets/45/actions":      {method: http.MethodPost, body: `{"type":"power_on"}`},
-				"/v2/droplets/1111/actions":    {method: http.MethodPost, body: `{"kernel":7777,"type":"change_kernel"}`},
-				"/v2/droplets/65/actions":      {method: http.MethodPost, body: `{"type":"enable_backups"}`},
-				"/v2/droplets/4743/actions":    {method: http.MethodPost, body: `{"image":9999,"type":"rebuild"}`},
-				"/v2/droplets/884/actions":     {method: http.MethodPost, body: `{"disk":true,"size":"bigger","type":"resize"}`},
-				"/v2/droplets/789/actions/954": {method: http.MethodGet, body: `{}`},
+				"/v2/servers/34/actions":      {method: http.MethodPost, body: `{"type":"shutdown"}`},
+				"/v2/servers/4444/actions":    {method: http.MethodPost, body: `{"type":"disable_backups"}`},
+				"/v2/servers/999/actions":     {method: http.MethodPost, body: `{"type":"reboot"}`},
+				"/v2/servers/48/actions":      {method: http.MethodPost, body: `{"name":"best-snapshot","type":"snapshot"}`},
+				"/v2/servers/112/actions":     {method: http.MethodPost, body: `{"name":"yes","type":"rename"}`},
+				"/v2/servers/383/actions":     {method: http.MethodPost, body: `{"image":1234,"type":"restore"}`},
+				"/v2/servers/11234/actions":   {method: http.MethodPost, body: `{"type":"power_off"}`},
+				"/v2/servers/8/actions":       {method: http.MethodPost, body: `{"type":"power_cycle"}`},
+				"/v2/servers/234/actions":     {method: http.MethodPost, body: `{"type":"password_reset"}`},
+				"/v2/servers/591/actions":     {method: http.MethodPost, body: `{"type":"enable_private_networking"}`},
+				"/v2/servers/247/actions":     {method: http.MethodPost, body: `{"type":"enable_ipv6"}`},
+				"/v2/servers/45/actions":      {method: http.MethodPost, body: `{"type":"power_on"}`},
+				"/v2/servers/1111/actions":    {method: http.MethodPost, body: `{"kernel":7777,"type":"change_kernel"}`},
+				"/v2/servers/65/actions":      {method: http.MethodPost, body: `{"type":"enable_backups"}`},
+				"/v2/servers/4743/actions":    {method: http.MethodPost, body: `{"image":9999,"type":"rebuild"}`},
+				"/v2/servers/884/actions":     {method: http.MethodPost, body: `{"disk":true,"size":"bigger","type":"resize"}`},
+				"/v2/servers/789/actions/954": {method: http.MethodGet, body: `{}`},
 			}
 
 			auth := req.Header.Get("Authorization")
@@ -120,7 +120,7 @@ var _ = suite("compute/droplet-action", func(t *testing.T, when spec.G, it spec.
 				cmd.Args = append(cmd.Args, commandArgs...)
 
 				cmd.Env = append(os.Environ(),
-					fmt.Sprintf("DIGITALOCEAN_API_URL=%s", server.URL),
+					fmt.Sprintf("BINARYLANE_API_URL=%s", server.URL),
 				)
 
 				output, err := cmd.CombinedOutput()

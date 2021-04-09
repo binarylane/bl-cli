@@ -24,7 +24,7 @@ var _ = suite("projects/resources/get", func(t *testing.T, when spec.G, it spec.
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/droplets/1111":
+			case "/v2/servers/1111":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
