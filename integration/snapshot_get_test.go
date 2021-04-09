@@ -187,19 +187,19 @@ const (
 }
 `
 	snapshotGetVolumeOutput = `
-ID                                      Name                            Created at              Regions    Resource ID                             Resource Type    Min Disk Size    Size        Tags
-0a343fac-eacf-11e9-b96b-0a58ac144633    volume-syd-01-1570651053836    2019-10-09T19:57:36Z    [nyc1]     e2068b37-eace-11e9-85ad-0a58ac14430f    volume           100              0.00 GiB
+ID                                      Name                           Created at              Regions    Resource ID                             Resource Type    Min Disk Size    Size        Tags
+0a343fac-eacf-11e9-b96b-0a58ac144633    volume-syd-01-1570651053836    2019-10-09T19:57:36Z    [syd]      e2068b37-eace-11e9-85ad-0a58ac14430f    volume           100              0.00 GiB
 `
 	snapshotGetServerOutput = `
-ID          Name                                        Created at              Regions    Resource ID    Resource Type    Min Disk Size    Size        Tags
-53344211    ubuntu-s-1vcpu-1gb-syd-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943      server          25               1.01 GiB
+ID          Name                                       Created at              Regions    Resource ID    Resource Type    Min Disk Size    Size        Tags
+53344211    ubuntu-s-1vcpu-1gb-syd-01-1570651077842    2019-10-09T19:57:59Z    [syd]      162347943      server           25               1.01 GiB
 `
 	snapshotGetFormatOutput = `
 ID          Resource Type
 53344211    server
 `
 	snapshotGetNoHeaderOutput = `
-0a343fac-eacf-11e9-b96b-0a58ac144633    volume-syd-01-1570651053836    2019-10-09T19:57:36Z    [nyc1]    e2068b37-eace-11e9-85ad-0a58ac14430f    volume    100    0.00 GiB
+0a343fac-eacf-11e9-b96b-0a58ac144633    volume-syd-01-1570651053836    2019-10-09T19:57:36Z    [syd]    e2068b37-eace-11e9-85ad-0a58ac14430f    volume    100    0.00 GiB
 `
 	snapshotGetFormatNoHeaderOutput = `
 53344211
