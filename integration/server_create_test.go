@@ -95,11 +95,11 @@ var _ = suite("compute/server/create", func(t *testing.T, when spec.G, it spec.S
 			expect.Equal(strings.TrimSpace(serverCreateOutput), strings.TrimSpace(string(output)))
 
 			request := &struct {
-				Name    string
-				Image   string
-				Region  string
-				Size    string
-				VPCID   int `json:"vpc_id,float64"`
+				Name   string
+				Image  string
+				Region string
+				Size   string
+				VPCID  int `json:"vpc_id,float64"`
 			}{}
 
 			err = json.Unmarshal(reqBody, request)
