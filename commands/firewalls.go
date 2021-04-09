@@ -474,7 +474,7 @@ func extractRule(ruleStr string, sd string) (map[string]interface{}, error) {
 
 	rule[sd] = map[string]interface{}{
 		"addresses":          addresses,
-		"server_ids":        serverIDs,
+		"server_ids":         serverIDs,
 		"load_balancer_uids": lbUIDs,
 		"tags":               tags,
 	}

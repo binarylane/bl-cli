@@ -54,7 +54,7 @@ func (f *Firewall) ColMap() map[string]string {
 		"Created":        "Created At",
 		"InboundRules":   "Inbound Rules",
 		"OutboundRules":  "Outbound Rules",
-		"ServerIDs":     "Server IDs",
+		"ServerIDs":      "Server IDs",
 		"Tags":           "Tags",
 		"PendingChanges": "Pending Changes",
 	}
@@ -72,7 +72,7 @@ func (f *Firewall) KV() []map[string]interface{} {
 			"Created":        fw.Created,
 			"InboundRules":   irs,
 			"OutboundRules":  ors,
-			"ServerIDs":     serverListHelper(fw.ServerIDs),
+			"ServerIDs":      serverListHelper(fw.ServerIDs),
 			"Tags":           strings.Join(fw.Tags, ","),
 			"PendingChanges": firewallPendingChangesPrintHelper(fw),
 		}
