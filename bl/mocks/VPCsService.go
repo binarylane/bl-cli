@@ -8,7 +8,7 @@ import (
 	reflect "reflect"
 
 	bl "github.com/binarylane/bl-cli/bl"
-	"github.com/binarylane/go-binarylane"
+	binarylane "github.com/binarylane/go-binarylane"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -33,6 +33,35 @@ func NewMockVPCsService(ctrl *gomock.Controller) *MockVPCsService {
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockVPCsService) EXPECT() *MockVPCsServiceMockRecorder {
 	return m.recorder
+}
+
+// Create mocks base method.
+func (m *MockVPCsService) Create(vpcr *binarylane.VPCCreateRequest) (*bl.VPC, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Create", vpcr)
+	ret0, _ := ret[0].(*bl.VPC)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Create indicates an expected call of Create.
+func (mr *MockVPCsServiceMockRecorder) Create(vpcr interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockVPCsService)(nil).Create), vpcr)
+}
+
+// Delete mocks base method.
+func (m *MockVPCsService) Delete(id int) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Delete", id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Delete indicates an expected call of Delete.
+func (mr *MockVPCsServiceMockRecorder) Delete(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockVPCsService)(nil).Delete), id)
 }
 
 // Get mocks base method.
@@ -65,21 +94,6 @@ func (mr *MockVPCsServiceMockRecorder) List() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockVPCsService)(nil).List))
 }
 
-// Create mocks base method.
-func (m *MockVPCsService) Create(vpcr *binarylane.VPCCreateRequest) (*bl.VPC, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Create", vpcr)
-	ret0, _ := ret[0].(*bl.VPC)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Create indicates an expected call of Create.
-func (mr *MockVPCsServiceMockRecorder) Create(vpcr interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockVPCsService)(nil).Create), vpcr)
-}
-
 // Update mocks base method.
 func (m *MockVPCsService) Update(id int, vpcr *binarylane.VPCUpdateRequest) (*bl.VPC, error) {
 	m.ctrl.T.Helper()
@@ -93,18 +107,4 @@ func (m *MockVPCsService) Update(id int, vpcr *binarylane.VPCUpdateRequest) (*bl
 func (mr *MockVPCsServiceMockRecorder) Update(id, vpcr interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockVPCsService)(nil).Update), id, vpcr)
-}
-
-// Delete mocks base method.
-func (m *MockVPCsService) Delete(id int) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Delete", id)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// Delete indicates an expected call of Delete.
-func (mr *MockVPCsServiceMockRecorder) Delete(id interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockVPCsService)(nil).Delete), id)
 }

@@ -8,7 +8,7 @@ import (
 	reflect "reflect"
 
 	bl "github.com/binarylane/bl-cli/bl"
-	"github.com/binarylane/go-binarylane"
+	binarylane "github.com/binarylane/go-binarylane"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -33,36 +33,6 @@ func NewMockTagsService(ctrl *gomock.Controller) *MockTagsService {
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockTagsService) EXPECT() *MockTagsServiceMockRecorder {
 	return m.recorder
-}
-
-// List mocks base method.
-func (m *MockTagsService) List() (bl.Tags, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "List")
-	ret0, _ := ret[0].(bl.Tags)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// List indicates an expected call of List.
-func (mr *MockTagsServiceMockRecorder) List() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockTagsService)(nil).List))
-}
-
-// Get mocks base method.
-func (m *MockTagsService) Get(arg0 string) (*bl.Tag, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Get", arg0)
-	ret0, _ := ret[0].(*bl.Tag)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Get indicates an expected call of Get.
-func (mr *MockTagsServiceMockRecorder) Get(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockTagsService)(nil).Get), arg0)
 }
 
 // Create mocks base method.
@@ -92,6 +62,36 @@ func (m *MockTagsService) Delete(arg0 string) error {
 func (mr *MockTagsServiceMockRecorder) Delete(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockTagsService)(nil).Delete), arg0)
+}
+
+// Get mocks base method.
+func (m *MockTagsService) Get(arg0 string) (*bl.Tag, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Get", arg0)
+	ret0, _ := ret[0].(*bl.Tag)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Get indicates an expected call of Get.
+func (mr *MockTagsServiceMockRecorder) Get(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockTagsService)(nil).Get), arg0)
+}
+
+// List mocks base method.
+func (m *MockTagsService) List() (bl.Tags, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "List")
+	ret0, _ := ret[0].(bl.Tags)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// List indicates an expected call of List.
+func (mr *MockTagsServiceMockRecorder) List() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockTagsService)(nil).List))
 }
 
 // TagResources mocks base method.

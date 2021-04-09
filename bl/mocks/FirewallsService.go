@@ -8,7 +8,7 @@ import (
 	reflect "reflect"
 
 	bl "github.com/binarylane/bl-cli/bl"
-	"github.com/binarylane/go-binarylane"
+	binarylane "github.com/binarylane/go-binarylane"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -35,19 +35,56 @@ func (m *MockFirewallsService) EXPECT() *MockFirewallsServiceMockRecorder {
 	return m.recorder
 }
 
-// Get mocks base method.
-func (m *MockFirewallsService) Get(fID string) (*bl.Firewall, error) {
+// AddRules mocks base method.
+func (m *MockFirewallsService) AddRules(fID string, rr *binarylane.FirewallRulesRequest) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Get", fID)
-	ret0, _ := ret[0].(*bl.Firewall)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret := m.ctrl.Call(m, "AddRules", fID, rr)
+	ret0, _ := ret[0].(error)
+	return ret0
 }
 
-// Get indicates an expected call of Get.
-func (mr *MockFirewallsServiceMockRecorder) Get(fID interface{}) *gomock.Call {
+// AddRules indicates an expected call of AddRules.
+func (mr *MockFirewallsServiceMockRecorder) AddRules(fID, rr interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockFirewallsService)(nil).Get), fID)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddRules", reflect.TypeOf((*MockFirewallsService)(nil).AddRules), fID, rr)
+}
+
+// AddServers mocks base method.
+func (m *MockFirewallsService) AddServers(fID string, sIDs ...int) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{fID}
+	for _, a := range sIDs {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "AddServers", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// AddServers indicates an expected call of AddServers.
+func (mr *MockFirewallsServiceMockRecorder) AddServers(fID interface{}, sIDs ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{fID}, sIDs...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddServers", reflect.TypeOf((*MockFirewallsService)(nil).AddServers), varargs...)
+}
+
+// AddTags mocks base method.
+func (m *MockFirewallsService) AddTags(fID string, tags ...string) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{fID}
+	for _, a := range tags {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "AddTags", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// AddTags indicates an expected call of AddTags.
+func (mr *MockFirewallsServiceMockRecorder) AddTags(fID interface{}, tags ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{fID}, tags...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddTags", reflect.TypeOf((*MockFirewallsService)(nil).AddTags), varargs...)
 }
 
 // Create mocks base method.
@@ -65,19 +102,33 @@ func (mr *MockFirewallsServiceMockRecorder) Create(fr interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockFirewallsService)(nil).Create), fr)
 }
 
-// Update mocks base method.
-func (m *MockFirewallsService) Update(fID string, fr *binarylane.FirewallRequest) (*bl.Firewall, error) {
+// Delete mocks base method.
+func (m *MockFirewallsService) Delete(fID string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Update", fID, fr)
+	ret := m.ctrl.Call(m, "Delete", fID)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Delete indicates an expected call of Delete.
+func (mr *MockFirewallsServiceMockRecorder) Delete(fID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockFirewallsService)(nil).Delete), fID)
+}
+
+// Get mocks base method.
+func (m *MockFirewallsService) Get(fID string) (*bl.Firewall, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Get", fID)
 	ret0, _ := ret[0].(*bl.Firewall)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// Update indicates an expected call of Update.
-func (mr *MockFirewallsServiceMockRecorder) Update(fID, fr interface{}) *gomock.Call {
+// Get indicates an expected call of Get.
+func (mr *MockFirewallsServiceMockRecorder) Get(fID interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockFirewallsService)(nil).Update), fID, fr)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockFirewallsService)(nil).Get), fID)
 }
 
 // List mocks base method.
@@ -110,37 +161,18 @@ func (mr *MockFirewallsServiceMockRecorder) ListByServer(sID interface{}) *gomoc
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListByServer", reflect.TypeOf((*MockFirewallsService)(nil).ListByServer), sID)
 }
 
-// Delete mocks base method.
-func (m *MockFirewallsService) Delete(fID string) error {
+// RemoveRules mocks base method.
+func (m *MockFirewallsService) RemoveRules(fID string, rr *binarylane.FirewallRulesRequest) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Delete", fID)
+	ret := m.ctrl.Call(m, "RemoveRules", fID, rr)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// Delete indicates an expected call of Delete.
-func (mr *MockFirewallsServiceMockRecorder) Delete(fID interface{}) *gomock.Call {
+// RemoveRules indicates an expected call of RemoveRules.
+func (mr *MockFirewallsServiceMockRecorder) RemoveRules(fID, rr interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockFirewallsService)(nil).Delete), fID)
-}
-
-// AddServers mocks base method.
-func (m *MockFirewallsService) AddServers(fID string, sIDs ...int) error {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{fID}
-	for _, a := range sIDs {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "AddServers", varargs...)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// AddServers indicates an expected call of AddServers.
-func (mr *MockFirewallsServiceMockRecorder) AddServers(fID interface{}, sIDs ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{fID}, sIDs...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddServers", reflect.TypeOf((*MockFirewallsService)(nil).AddServers), varargs...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveRules", reflect.TypeOf((*MockFirewallsService)(nil).RemoveRules), fID, rr)
 }
 
 // RemoveServers mocks base method.
@@ -162,25 +194,6 @@ func (mr *MockFirewallsServiceMockRecorder) RemoveServers(fID interface{}, sIDs 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveServers", reflect.TypeOf((*MockFirewallsService)(nil).RemoveServers), varargs...)
 }
 
-// AddTags mocks base method.
-func (m *MockFirewallsService) AddTags(fID string, tags ...string) error {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{fID}
-	for _, a := range tags {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "AddTags", varargs...)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// AddTags indicates an expected call of AddTags.
-func (mr *MockFirewallsServiceMockRecorder) AddTags(fID interface{}, tags ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{fID}, tags...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddTags", reflect.TypeOf((*MockFirewallsService)(nil).AddTags), varargs...)
-}
-
 // RemoveTags mocks base method.
 func (m *MockFirewallsService) RemoveTags(fID string, tags ...string) error {
 	m.ctrl.T.Helper()
@@ -200,30 +213,17 @@ func (mr *MockFirewallsServiceMockRecorder) RemoveTags(fID interface{}, tags ...
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveTags", reflect.TypeOf((*MockFirewallsService)(nil).RemoveTags), varargs...)
 }
 
-// AddRules mocks base method.
-func (m *MockFirewallsService) AddRules(fID string, rr *binarylane.FirewallRulesRequest) error {
+// Update mocks base method.
+func (m *MockFirewallsService) Update(fID string, fr *binarylane.FirewallRequest) (*bl.Firewall, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddRules", fID, rr)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret := m.ctrl.Call(m, "Update", fID, fr)
+	ret0, _ := ret[0].(*bl.Firewall)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
-// AddRules indicates an expected call of AddRules.
-func (mr *MockFirewallsServiceMockRecorder) AddRules(fID, rr interface{}) *gomock.Call {
+// Update indicates an expected call of Update.
+func (mr *MockFirewallsServiceMockRecorder) Update(fID, fr interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddRules", reflect.TypeOf((*MockFirewallsService)(nil).AddRules), fID, rr)
-}
-
-// RemoveRules mocks base method.
-func (m *MockFirewallsService) RemoveRules(fID string, rr *binarylane.FirewallRulesRequest) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RemoveRules", fID, rr)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// RemoveRules indicates an expected call of RemoveRules.
-func (mr *MockFirewallsServiceMockRecorder) RemoveRules(fID, rr interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveRules", reflect.TypeOf((*MockFirewallsService)(nil).RemoveRules), fID, rr)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockFirewallsService)(nil).Update), fID, fr)
 }
