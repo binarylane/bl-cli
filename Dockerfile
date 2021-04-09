@@ -12,10 +12,10 @@ RUN  apk add --update  --no-cache \
      libc6-compat \
      make
 
-RUN mkdir -p /go/src/github.com/digitalocean/doctl
-ADD . /go/src/github.com/digitalocean/doctl/
+RUN mkdir -p /go/src/github.com/binarylane/bl-cli
+ADD . /go/src/github.com/binarylane/bl-cli/
 
-RUN cd /go/src/github.com/digitalocean/doctl && \
+RUN cd /go/src/github.com/binarylane/bl-cli && \
     make build GOARCH=$GOARCH
 
 # Step 2: App
@@ -27,9 +27,9 @@ RUN apk add --update --no-cache \
         openssh
 
 WORKDIR /app
-COPY --from=build /out/doctl /app/doctl
+COPY --from=build /out/bl /app/bl
 
 RUN adduser -D user
 USER user:user
 
-ENTRYPOINT ["/app/doctl"]
+ENTRYPOINT ["/app/bl"]
