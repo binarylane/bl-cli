@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var _ = suite("compute/droplet/delete", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/server/delete", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect *require.Assertions
 		server *httptest.Server
@@ -36,7 +36,7 @@ var _ = suite("compute/droplet/delete", func(t *testing.T, when spec.G, it spec.
 						return
 					}
 
-					w.Write([]byte(`{"droplets":[{"name":"some-droplet-name", "id": 1337}]}`))
+					w.Write([]byte(`{"servers":[{"name":"some-server-name", "id": 1337}]}`))
 				} else if req.URL.RawQuery == "tag_name=one" {
 					if req.Method == http.MethodDelete {
 						w.WriteHeader(http.StatusNoContent)
@@ -50,7 +50,7 @@ var _ = suite("compute/droplet/delete", func(t *testing.T, when spec.G, it spec.
 						return
 					}
 
-					w.Write([]byte(`{"droplets":[{"name":"some-droplet-name", "id": 1337}, {"name":"another-droplet-name", "id": 7331}]}`))
+					w.Write([]byte(`{"servers":[{"name":"some-server-name", "id": 1337}, {"name":"another-server-name", "id": 7331}]}`))
 				} else if req.URL.RawQuery == "tag_name=two" {
 					if req.Method == http.MethodDelete {
 						w.WriteHeader(http.StatusNoContent)
@@ -64,7 +64,7 @@ var _ = suite("compute/droplet/delete", func(t *testing.T, when spec.G, it spec.
 						return
 					}
 
-					w.Write([]byte(`{"droplets":[{"name":"some-droplet-name", "id": 1337}]}`))
+					w.Write([]byte(`{"servers":[{"name":"some-server-name", "id": 1337}]}`))
 				}
 			case "/v2/servers/1337":
 				if req.Method != http.MethodDelete {
@@ -88,24 +88,24 @@ var _ = suite("compute/droplet/delete", func(t *testing.T, when spec.G, it spec.
 		base := []string{
 			"-t", "some-magic-token",
 			"compute",
-			"droplet",
+			"server",
 		}
 
 		cases := []struct {
 			desc string
 			args []string
 		}{
-			{desc: "command is delete", args: append(base, []string{"delete", "some-droplet-name", "--force"}...)},
-			{desc: "command is rm", args: append(base, []string{"rm", "some-droplet-name", "--force"}...)},
-			{desc: "command is d", args: append(base, []string{"d", "some-droplet-name", "--force"}...)},
-			{desc: "command is del", args: append(base, []string{"del", "some-droplet-name", "--force"}...)},
+			{desc: "command is delete", args: append(base, []string{"delete", "some-server-name", "--force"}...)},
+			{desc: "command is rm", args: append(base, []string{"rm", "some-server-name", "--force"}...)},
+			{desc: "command is d", args: append(base, []string{"d", "some-server-name", "--force"}...)},
+			{desc: "command is del", args: append(base, []string{"del", "some-server-name", "--force"}...)},
 		}
 
 		for _, c := range cases {
 			commandArgs := c.args
 
 			when(c.desc, func() {
-				it("deletes a droplet", func() {
+				it("deletes a server", func() {
 					finalArgs := append([]string{"-u", server.URL}, commandArgs...)
 					cmd := exec.Command(builtBinaryPath, finalArgs...)
 
@@ -118,12 +118,12 @@ var _ = suite("compute/droplet/delete", func(t *testing.T, when spec.G, it spec.
 	})
 
 	when("deleting by tag name", func() {
-		it("deletes the right Droplet", func() {
+		it("deletes the right Server", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"delete",
 				"--tag-name", "one",
 				"--force",
@@ -135,79 +135,79 @@ var _ = suite("compute/droplet/delete", func(t *testing.T, when spec.G, it spec.
 		})
 	})
 
-	when("deleting one Droplet without force flag", func() {
+	when("deleting one Server without force flag", func() {
 		it("correctly promts for confirmation", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"delete",
-				"some-droplet-name",
+				"some-server-name",
 			)
 
 			output, err := cmd.CombinedOutput()
 			expect.Error(err)
-			expect.Equal(strings.TrimSpace(dropletDelOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverDelOutput), strings.TrimSpace(string(output)))
 		})
 	})
 
-	when("deleting two Droplet without force flag", func() {
+	when("deleting two Server without force flag", func() {
 		it("correctly promts for confirmation", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"delete",
-				"some-droplet-name",
-				"another-droplet-name",
+				"some-server-name",
+				"another-server-name",
 			)
 
 			output, err := cmd.CombinedOutput()
 			expect.Error(err)
-			expect.Equal(strings.TrimSpace(multiDropletDelOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(multiServerDelOutput), strings.TrimSpace(string(output)))
 		})
 	})
 
-	when("deleting one Droplet by tag without force flag", func() {
+	when("deleting one Server by tag without force flag", func() {
 		it("correctly promts for confirmation", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"delete",
 				"--tag-name", "one",
 			)
 
 			output, err := cmd.CombinedOutput()
 			expect.Error(err)
-			expect.Equal(strings.TrimSpace(tagDropletDelOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(tagServerDelOutput), strings.TrimSpace(string(output)))
 		})
 	})
 
-	when("deleting two Droplet by tag without force flag", func() {
+	when("deleting two Server by tag without force flag", func() {
 		it("correctly promts for confirmation", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"delete",
 				"--tag-name", "two",
 			)
 
 			output, err := cmd.CombinedOutput()
 			expect.Error(err)
-			expect.Equal(strings.TrimSpace(tagMultiDropletDelOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(tagMultiServerDelOutput), strings.TrimSpace(string(output)))
 		})
 	})
 })
 
 const (
-	dropletDelOutput         = "Warning: Are you sure you want to delete this Droplet? (y/N) ? Error: Operation aborted."
-	multiDropletDelOutput    = "Warning: Are you sure you want to delete 2 Servers? (y/N) ? Error: Operation aborted."
-	tagDropletDelOutput      = `Warning: Are you sure you want to delete 1 Droplet tagged "one"? [affected Droplet: 1337] (y/N) ? Error: Operation aborted.`
-	tagMultiDropletDelOutput = `Warning: Are you sure you want to delete 2 Servers tagged "two"? [affected Servers: 1337 7331] (y/N) ? Error: Operation aborted.`
+	serverDelOutput         = "Warning: Are you sure you want to delete this Server? (y/N) ? Error: Operation aborted."
+	multiServerDelOutput    = "Warning: Are you sure you want to delete 2 Servers? (y/N) ? Error: Operation aborted."
+	tagServerDelOutput      = `Warning: Are you sure you want to delete 1 Server tagged "one"? [affected Server: 1337] (y/N) ? Error: Operation aborted.`
+	tagMultiServerDelOutput = `Warning: Are you sure you want to delete 2 Servers tagged "two"? [affected Servers: 1337 7331] (y/N) ? Error: Operation aborted.`
 )

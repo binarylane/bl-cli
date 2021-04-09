@@ -24,7 +24,7 @@ var _ = suite("compute/load-balancer/remove-forwarding-rules", func(t *testing.T
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/load_balancers/basic-load-id/forwarding_rules":
+			case "/v2/load_balancers/1234/forwarding_rules":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -61,7 +61,7 @@ var _ = suite("compute/load-balancer/remove-forwarding-rules", func(t *testing.T
 				"compute",
 				"load-balancer",
 				"remove-forwarding-rules",
-				"basic-load-id",
+				"1234",
 				"--forwarding-rules", "entry_protocol:tcp,entry_port:3306,target_protocol:https,target_port:8443",
 			)
 

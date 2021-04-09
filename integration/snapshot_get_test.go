@@ -36,7 +36,7 @@ var _ = suite("compute/snapshot/get", func(t *testing.T, when spec.G, it spec.S)
 					return
 				}
 
-				w.Write([]byte(snapshotGetDropletResponse))
+				w.Write([]byte(snapshotGetServerResponse))
 			case "/v2/snapshots/0a343fac-eacf-11e9-b96b-0a58ac144633":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
@@ -61,8 +61,8 @@ var _ = suite("compute/snapshot/get", func(t *testing.T, when spec.G, it spec.S)
 		}))
 	})
 
-	when("passed a droplet ID", func() {
-		it("displays the droplet snapshot", func() {
+	when("passed a server ID", func() {
+		it("displays the server snapshot", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
@@ -74,7 +74,7 @@ var _ = suite("compute/snapshot/get", func(t *testing.T, when spec.G, it spec.S)
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(snapshotGetDropletOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(snapshotGetServerOutput), strings.TrimSpace(string(output)))
 		})
 	})
 
@@ -152,7 +152,7 @@ var _ = suite("compute/snapshot/get", func(t *testing.T, when spec.G, it spec.S)
 })
 
 const (
-	snapshotGetDropletResponse = `
+	snapshotGetServerResponse = `
 {
   "snapshot": {
     "id": "53344211",
@@ -162,7 +162,7 @@ const (
     ],
     "created_at": "2019-10-09T19:57:59Z",
     "resource_id": "162347943",
-    "resource_type": "droplet",
+    "resource_type": "server",
     "min_disk_size": 25,
     "size_gigabytes": 1.01,
     "tags": []
@@ -190,13 +190,13 @@ const (
 ID                                      Name                            Created at              Regions    Resource ID                             Resource Type    Min Disk Size    Size        Tags
 0a343fac-eacf-11e9-b96b-0a58ac144633    volume-syd-01-1570651053836    2019-10-09T19:57:36Z    [nyc1]     e2068b37-eace-11e9-85ad-0a58ac14430f    volume           100              0.00 GiB
 `
-	snapshotGetDropletOutput = `
+	snapshotGetServerOutput = `
 ID          Name                                        Created at              Regions    Resource ID    Resource Type    Min Disk Size    Size        Tags
-53344211    ubuntu-s-1vcpu-1gb-syd-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943      droplet          25               1.01 GiB
+53344211    ubuntu-s-1vcpu-1gb-syd-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943      server          25               1.01 GiB
 `
 	snapshotGetFormatOutput = `
 ID          Resource Type
-53344211    droplet
+53344211    server
 `
 	snapshotGetNoHeaderOutput = `
 0a343fac-eacf-11e9-b96b-0a58ac144633    volume-syd-01-1570651053836    2019-10-09T19:57:36Z    [nyc1]    e2068b37-eace-11e9-85ad-0a58ac14430f    volume    100    0.00 GiB

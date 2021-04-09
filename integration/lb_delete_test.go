@@ -25,7 +25,7 @@ var _ = suite("compute/load-balancer/delete", func(t *testing.T, when spec.G, it
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/load_balancers/that-lb-id":
+			case "/v2/load_balancers/1234":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -56,7 +56,7 @@ var _ = suite("compute/load-balancer/delete", func(t *testing.T, when spec.G, it
 		)
 
 		baseArgs = []string{
-			"that-lb-id",
+			"1234",
 			"--force",
 		}
 	})

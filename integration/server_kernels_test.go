@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var _ = suite("compute/droplet/kernels", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/server/kernels", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect *require.Assertions
 		server *httptest.Server
@@ -36,7 +36,7 @@ var _ = suite("compute/droplet/kernels", func(t *testing.T, when spec.G, it spec
 					return
 				}
 
-				w.Write([]byte(dropletKernelsResponse))
+				w.Write([]byte(serverKernelsResponse))
 			default:
 				dump, err := httputil.DumpRequest(req, true)
 				if err != nil {
@@ -49,29 +49,29 @@ var _ = suite("compute/droplet/kernels", func(t *testing.T, when spec.G, it spec
 	})
 
 	when("all required flags are passed", func() {
-		it("lists droplet kernels", func() {
+		it("lists server kernels", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"kernels",
 				"1111",
 			)
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(dropletKernelsOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverKernelsOutput), strings.TrimSpace(string(output)))
 		})
 	})
 })
 
 const (
-	dropletKernelsOutput = `
+	serverKernelsOutput = `
 ID     Name    Version
 134    foo     2.3.0
 `
-	dropletKernelsResponse = `
+	serverKernelsResponse = `
 {"kernels": [{"id": 134, "name": "foo", "version": "2.3.0"}]}
 `
 )

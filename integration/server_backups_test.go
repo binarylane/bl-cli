@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var _ = suite("compute/droplet/backups", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/server/backups", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect *require.Assertions
 		server *httptest.Server
@@ -36,7 +36,7 @@ var _ = suite("compute/droplet/backups", func(t *testing.T, when spec.G, it spec
 					return
 				}
 
-				w.Write([]byte(dropletBackupsResponse))
+				w.Write([]byte(serverBackupsResponse))
 			default:
 				dump, err := httputil.DumpRequest(req, true)
 				if err != nil {
@@ -49,29 +49,29 @@ var _ = suite("compute/droplet/backups", func(t *testing.T, when spec.G, it spec
 	})
 
 	when("all required flags are passed", func() {
-		it("lists droplet backups", func() {
+		it("lists server backups", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"backups",
 				"1111",
 			)
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(dropletBackupsOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverBackupsOutput), strings.TrimSpace(string(output)))
 		})
 	})
 })
 
 const (
-	dropletBackupsOutput = `
+	serverBackupsOutput = `
 ID      Name     Type        Distribution    Slug      Public    Min Disk
 4444    magic    snapshot    Fedora          slimey    false     25
 `
-	dropletBackupsResponse = `
+	serverBackupsResponse = `
 {"backups": [
   {
      "id": 4444,

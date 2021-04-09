@@ -23,7 +23,7 @@ type tagRequest struct {
 	} `json:"resources"`
 }
 
-var _ = suite("compute/droplet/tag", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/server/tag", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect *require.Assertions
 		server *httptest.Server
@@ -46,7 +46,7 @@ var _ = suite("compute/droplet/tag", func(t *testing.T, when spec.G, it spec.S) 
 					return
 				}
 
-				w.Write([]byte(`{"droplets":[{"name":"some-droplet-name", "id": 1337}]}`))
+				w.Write([]byte(`{"servers":[{"name":"some-server-name", "id": 1337}]}`))
 			case "/v2/tags/my-tag/resources":
 				body, err := ioutil.ReadAll(req.Body)
 				expect.NoError(err)
@@ -79,15 +79,15 @@ var _ = suite("compute/droplet/tag", func(t *testing.T, when spec.G, it spec.S) 
 		base := []string{
 			"-t", "some-magic-token",
 			"compute",
-			"droplet",
+			"server",
 		}
 
 		cases := []struct {
 			desc string
 			args []string
 		}{
-			{desc: "when tagging", args: append(base, []string{"tag", "some-droplet-name", "--tag-name", "my-tag"}...)},
-			{desc: "when untagging", args: append(base, []string{"untag", "some-droplet-name", "--tag-name", "my-tag"}...)},
+			{desc: "when tagging", args: append(base, []string{"tag", "some-server-name", "--tag-name", "my-tag"}...)},
+			{desc: "when untagging", args: append(base, []string{"untag", "some-server-name", "--tag-name", "my-tag"}...)},
 		}
 
 		for _, c := range cases {
@@ -110,7 +110,7 @@ var _ = suite("compute/droplet/tag", func(t *testing.T, when spec.G, it spec.S) 
 		base := []string{
 			"-t", "some-magic-token",
 			"compute",
-			"droplet",
+			"server",
 		}
 
 		cases := []struct {
@@ -119,23 +119,23 @@ var _ = suite("compute/droplet/tag", func(t *testing.T, when spec.G, it spec.S) 
 			err  string
 		}{
 			{
-				desc: "when tagging and droplet id is missing",
+				desc: "when tagging and server id is missing",
 				args: append(base, []string{"tag", "1444", "--tag-name", "my-tag"}...),
 				err:  "^Error: POST http.*: 404 tag not found",
 			},
 			{
-				desc: "when untagging and droplet id is missing",
+				desc: "when untagging and server id is missing",
 				args: append(base, []string{"untag", "1444", "--tag-name", "my-tag"}...),
 				err:  "^Error: DELETE http.*: 404 tag not found",
 			},
 			{
-				desc: "when tagging and droplet name is missing",
-				args: append(base, []string{"untag", "bad-droplet-name", "--tag-name", "my-tag"}...),
+				desc: "when tagging and server name is missing",
+				args: append(base, []string{"untag", "bad-server-name", "--tag-name", "my-tag"}...),
 				err:  `^Error:.*\".*\" could not be found`,
 			},
 			{
-				desc: "when untagging and droplet name is missing",
-				args: append(base, []string{"untag", "bad-droplet-name", "--tag-name", "my-tag"}...),
+				desc: "when untagging and server name is missing",
+				args: append(base, []string{"untag", "bad-server-name", "--tag-name", "my-tag"}...),
 				err:  `^Error:.*\".*\" could not be found`,
 			},
 		}

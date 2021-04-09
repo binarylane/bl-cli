@@ -87,7 +87,7 @@ var _ = suite("compute/server/create", func(t *testing.T, when spec.G, it spec.S
 				"--image", "a-test-image",
 				"--region", "a-test-region",
 				"--size", "a-test-size",
-				"--vpc-uuid", "00000000-0000-4000-8000-000000000000",
+				"--vpc-id", "1001",
 			)
 
 			output, err := cmd.CombinedOutput()
@@ -99,7 +99,7 @@ var _ = suite("compute/server/create", func(t *testing.T, when spec.G, it spec.S
 				Image   string
 				Region  string
 				Size    string
-				VPCUUID string `json:"vpc_uuid"`
+				VPCID   int `json:"vpc_id,float64"`
 			}{}
 
 			err = json.Unmarshal(reqBody, request)
@@ -109,7 +109,7 @@ var _ = suite("compute/server/create", func(t *testing.T, when spec.G, it spec.S
 			expect.Equal("a-test-image", request.Image)
 			expect.Equal("a-test-region", request.Region)
 			expect.Equal("a-test-size", request.Size)
-			expect.Equal("00000000-0000-4000-8000-000000000000", request.VPCUUID)
+			expect.Equal(1001, request.VPCID)
 		})
 	})
 
@@ -196,7 +196,7 @@ const (
       "slug": "some-region-slug"
     },
 	"status": "active",
-	"vpc_uuid": "00000000-0000-4000-8000-000000000000",
+	"vpc_id": 1001,
     "tags": ["yes"],
     "features": ["remotes"],
     "volume_ids": ["some-volume-id"]
@@ -210,7 +210,7 @@ const (
 {"action": "id": 1, "status": "completed"}
 `
 	serverCreateOutput = `
-ID      Name                 Public IPv4    Private IPv4    Public IPv6    Memory    VCPUs    Disk    Region              Image                          VPC UUID                                Status    Tags    Features    Volumes
-1111    some-server-name    1.2.3.4        7.7.7.7                        12        13       15      some-region-slug    some-distro some-image-name    00000000-0000-4000-8000-000000000000    active    yes     remotes     some-volume-id
+ID      Name                Public IPv4    Private IPv4    Public IPv6    Memory    VCPUs    Disk    Region              Image                          VPC ID    Status    Tags    Features    Volumes
+1111    some-server-name    1.2.3.4        7.7.7.7                        12        13       15      some-region-slug    some-distro some-image-name    1001      active    yes     remotes     some-volume-id
 `
 )

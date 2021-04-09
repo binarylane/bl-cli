@@ -116,8 +116,8 @@ const (
       ]
     },
     {
-      "name": "San Francisco 1",
-      "slug": "sfo1",
+      "name": "Melbourne",
+      "slug": "mel",
       "features": [
         "private_networking",
         "backups"
@@ -135,17 +135,17 @@ const (
 }
 `
 	regionListOutput = `
-Slug    Name               Available
-syd    Sydney         true
-sfo1    San Francisco 1    true
+Slug    Name         Available
+syd     Sydney       true
+mel     Melbourne    true
 `
 	regionListFormatOutput = `
 Slug
 syd
-sfo1
+mel
 `
 	regionListNoHeaderOutput = `
-syd    Sydney         true
-sfo1    San Francisco 1    true
+syd    Sydney       true
+mel    Melbourne    true
 `
 )

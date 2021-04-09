@@ -63,7 +63,7 @@ var _ = suite("compute/load-balancer/create", func(t *testing.T, when spec.G, it
 		)
 
 		baseArgs = []string{
-			"--droplet-ids", "22,66",
+			"--server-ids", "22,66",
 			"--name", "my-lb-name",
 			"--region", "venus",
 			"--size", "lb-small",
@@ -71,7 +71,7 @@ var _ = suite("compute/load-balancer/create", func(t *testing.T, when spec.G, it
 			"--enable-proxy-protocol",
 			"--enable-backend-keepalive",
 			"--tag-name", "magic-lb",
-			"--vpc-uuid", "00000000-0000-4000-8000-000000000000",
+			"--vpc-id", "1001",
 		}
 	})
 
@@ -100,13 +100,13 @@ var _ = suite("compute/load-balancer/create", func(t *testing.T, when spec.G, it
 
 const (
 	lbCreateOutput = `
-ID                                      IP    Name             Status    Created At              Algorithm      Region    Size        VPC UUID                                Tag    Droplet IDs        SSL     Sticky Sessions                                Health Check                                                                                                            Forwarding Rules
-4de7ac8b-495b-4884-9a69-1050c6793cd6          example-lb-01    new       2017-02-01T22:22:58Z    round_robin    syd      lb-small    00000000-0000-4000-8000-000000000000           3164444,3164445    true    type:none,cookie_name:,cookie_ttl_seconds:0    protocol:,port:0,path:,check_interval_seconds:0,response_timeout_seconds:0,healthy_threshold:0,unhealthy_threshold:0
+ID      IP    Name             Status    Created At              Algorithm      Region    Size        VPC ID    Tag    Server IDs         SSL     Sticky Sessions                                Health Check                                                                                                            Forwarding Rules
+1234          example-lb-01    new       2017-02-01T22:22:58Z    round_robin    syd       lb-small    1001             3164444,3164445    true    type:none,cookie_name:,cookie_ttl_seconds:0    protocol:,port:0,path:,check_interval_seconds:0,response_timeout_seconds:0,healthy_threshold:0,unhealthy_threshold:0
 `
 	lbCreateResponse = `
 {
   "load_balancer": {
-    "id": "4de7ac8b-495b-4884-9a69-1050c6793cd6",
+    "id": 1234,
     "name": "example-lb-01",
     "ip": "",
     "algorithm": "round_robin",
@@ -129,7 +129,7 @@ ID                                      IP    Name             Status    Created
       "available": true
 	},
 	"size": "lb-small",
-    "vpc_uuid": "00000000-0000-4000-8000-000000000000",
+    "vpc_id": 1001,
     "tag": "",
     "server_ids": [
       3164444,
@@ -153,6 +153,6 @@ ID                                      IP    Name             Status    Created
   "redirect_http_to_https":true,
   "enable_proxy_protocol":true,
   "enable_backend_keepalive":true,
-  "vpc_uuid": "00000000-0000-4000-8000-000000000000"
+  "vpc_id": 1001
 }`
 )

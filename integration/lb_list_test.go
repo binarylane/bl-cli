@@ -80,15 +80,15 @@ var _ = suite("compute/load-balancer/list", func(t *testing.T, when spec.G, it s
 
 const (
 	lbListOutput = `
-ID        IP                 Name             Status    Created At              Algorithm      Region    Size         VPC UUID                                Tag    Droplet IDs    SSL      Sticky Sessions                                Health Check                                                                                                                   Forwarding Rules
-lb-one    104.131.186.241    example-lb-01    new       2017-02-01T22:22:58Z    round_robin    venus3    lb-small     00000000-0000-4000-8000-000000000000           3164444        false    type:none,cookie_name:,cookie_ttl_seconds:0    protocol:http,port:80,path:/,check_interval_seconds:10,response_timeout_seconds:5,healthy_threshold:5,unhealthy_threshold:3    entry_protocol:http,entry_port:80,target_protocol:http,target_port:80,certificate_id:,tls_passthrough:false
-lb-two    104.131.188.204    example-lb-02    new       2017-02-01T20:44:58Z    round_robin    mars1     lb-medium    00000000-0000-4000-8000-000000000000           3164445        false    type:none,cookie_name:,cookie_ttl_seconds:0    protocol:http,port:80,path:/,check_interval_seconds:10,response_timeout_seconds:5,healthy_threshold:5,unhealthy_threshold:3    entry_protocol:http,entry_port:80,target_protocol:http,target_port:80,certificate_id:,tls_passthrough:false
+ID      IP                 Name             Status    Created At              Algorithm      Region    Size         VPC ID    Tag    Server IDs    SSL      Sticky Sessions                                Health Check                                                                                                                   Forwarding Rules
+2001    104.131.186.241    example-lb-01    new       2017-02-01T22:22:58Z    round_robin    venus3    lb-small     1001             3164444       false    type:none,cookie_name:,cookie_ttl_seconds:0    protocol:http,port:80,path:/,check_interval_seconds:10,response_timeout_seconds:5,healthy_threshold:5,unhealthy_threshold:3    entry_protocol:http,entry_port:80,target_protocol:http,target_port:80,certificate_id:,tls_passthrough:false
+2002    104.131.188.204    example-lb-02    new       2017-02-01T20:44:58Z    round_robin    mars1     lb-medium    1001             3164445       false    type:none,cookie_name:,cookie_ttl_seconds:0    protocol:http,port:80,path:/,check_interval_seconds:10,response_timeout_seconds:5,healthy_threshold:5,unhealthy_threshold:3    entry_protocol:http,entry_port:80,target_protocol:http,target_port:80,certificate_id:,tls_passthrough:false
 `
 	lbListResponse = `
 {
   "load_balancers": [
     {
-      "id": "lb-one",
+      "id": 2001,
       "name": "example-lb-01",
       "ip": "104.131.186.241",
       "algorithm": "round_robin",
@@ -124,14 +124,14 @@ lb-two    104.131.188.204    example-lb-02    new       2017-02-01T20:44:58Z    
         "features": ["private_networking"],
         "available": true
       },
-      "vpc_uuid": "00000000-0000-4000-8000-000000000000",
+      "vpc_id": 1001,
       "tag": "",
       "server_ids": [3164444],
       "redirect_http_to_https": false,
       "enable_proxy_protocol": false
     },
     {
-      "id": "lb-two",
+      "id": 2002,
       "name": "example-lb-02",
       "ip": "104.131.188.204",
       "algorithm": "round_robin",
@@ -167,7 +167,7 @@ lb-two    104.131.188.204    example-lb-02    new       2017-02-01T20:44:58Z    
         "features": ["install_agent"],
         "available": true
       },
-      "vpc_uuid": "00000000-0000-4000-8000-000000000000",
+      "vpc_id": 1001,
       "tag": "",
       "server_ids": [3164445],
       "redirect_http_to_https": false,

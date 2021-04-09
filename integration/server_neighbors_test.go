@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var _ = suite("compute/droplet/neighbors", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/server/neighbors", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect     *require.Assertions
 		server     *httptest.Server
@@ -31,7 +31,7 @@ var _ = suite("compute/droplet/neighbors", func(t *testing.T, when spec.G, it sp
 
 		configPath = filepath.Join(dir, "config.yaml")
 
-		err = ioutil.WriteFile(configPath, []byte(dropletNeighborsConfig), 0644)
+		err = ioutil.WriteFile(configPath, []byte(serverNeighborsConfig), 0644)
 		expect.NoError(err)
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
@@ -48,7 +48,7 @@ var _ = suite("compute/droplet/neighbors", func(t *testing.T, when spec.G, it sp
 					return
 				}
 
-				w.Write([]byte(dropletNeighborsResponse))
+				w.Write([]byte(serverNeighborsResponse))
 			default:
 				dump, err := httputil.DumpRequest(req, true)
 				if err != nil {
@@ -66,10 +66,10 @@ var _ = suite("compute/droplet/neighbors", func(t *testing.T, when spec.G, it sp
 	})
 
 	when("all required flags are passed", func() {
-		it("lists droplet kernels", func() {
+		it("lists server kernels", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"compute",
-				"droplet",
+				"server",
 				"neighbors",
 				"1111",
 			)
@@ -81,7 +81,7 @@ var _ = suite("compute/droplet/neighbors", func(t *testing.T, when spec.G, it sp
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(dropletNeighborsOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverNeighborsOutput), strings.TrimSpace(string(output)))
 		})
 	})
 
@@ -89,7 +89,7 @@ var _ = suite("compute/droplet/neighbors", func(t *testing.T, when spec.G, it sp
 		it("only lists thoses headers", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"compute",
-				"droplet",
+				"server",
 				"neighbors",
 				"1111",
 				"--format", "ID,Memory,VCPUs,Disk,Region",
@@ -102,30 +102,30 @@ var _ = suite("compute/droplet/neighbors", func(t *testing.T, when spec.G, it sp
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(dropletNeighborsHeadersOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverNeighborsHeadersOutput), strings.TrimSpace(string(output)))
 		})
 	})
 })
 
 const (
-	dropletNeighborsConfig = `
+	serverNeighborsConfig = `
 ---
 access-token: some-extra-token
 `
-	dropletNeighborsOutput = `
-ID      Name    Public IPv4    Private IPv4    Public IPv6    Memory    VCPUs    Disk    Region       Image                          VPC UUID    Status    Tags    Features    Volumes
-2222                                                          0         0        0       some-slug    some-distro some-image-name                active    yes     remotes     some-volume-id
-1440                                                          0         0        0       some-slug    some-distro some-image-name                active    yes     remotes     some-volume-id
+	serverNeighborsOutput = `
+ID      Name    Public IPv4    Private IPv4    Public IPv6    Memory    VCPUs    Disk    Region       Image                          VPC ID    Status    Tags    Features    Volumes
+2222                                                          0         0        0       some-slug    some-distro some-image-name              active    yes     remotes     some-volume-id
+1440                                                          0         0        0       some-slug    some-distro some-image-name              active    yes     remotes     some-volume-id
 `
 
-	dropletNeighborsHeadersOutput = `
+	serverNeighborsHeadersOutput = `
 ID      Memory    VCPUs    Disk    Region
 2222    0         0        0       some-slug
 1440    0         0        0       some-slug
 `
-	dropletNeighborsResponse = `
+	serverNeighborsResponse = `
 {
-  "droplets": [{
+  "servers": [{
     "id": 2222,
     "image": {
       "distribution": "some-distro",

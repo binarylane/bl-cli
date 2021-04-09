@@ -72,7 +72,7 @@ var _ = suite("compute/floating-ip/create", func(t *testing.T, when spec.G, it s
 					"compute",
 					"floating-ip",
 					alias,
-					"--droplet-id", "1212",
+					"--server-id", "1212",
 				)
 
 				output, err := cmd.CombinedOutput()
@@ -85,14 +85,14 @@ var _ = suite("compute/floating-ip/create", func(t *testing.T, when spec.G, it s
 
 const (
 	floatingIPCreateOutput = `
-IP             Region    Droplet ID    Droplet Name
-45.55.96.47    syd      1212          magic-name
+IP             Region    Server ID    Server Name
+45.55.96.47    syd       1212         magic-name
 `
 	floatingIPCreateResponse = `
 {
   "floating_ip": {
     "ip": "45.55.96.47",
-    "droplet": {
+    "server": {
       "id": 1212,
       "name": "magic-name"
     },
@@ -112,6 +112,6 @@ IP             Region    Droplet ID    Droplet Name
 {"region":"","server_id":1212}
 `
 	floatingIPRegionCreateRequest = `
-{"region":"newark"}
+{"region":"syd"}
 `
 )

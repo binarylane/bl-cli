@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var _ = suite("compute/droplet/actions", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/server/actions", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect *require.Assertions
 		server *httptest.Server
@@ -36,7 +36,7 @@ var _ = suite("compute/droplet/actions", func(t *testing.T, when spec.G, it spec
 					return
 				}
 
-				w.Write([]byte(dropletActionsResponse))
+				w.Write([]byte(serverActionsResponse))
 			default:
 				dump, err := httputil.DumpRequest(req, true)
 				if err != nil {
@@ -49,29 +49,29 @@ var _ = suite("compute/droplet/actions", func(t *testing.T, when spec.G, it spec
 	})
 
 	when("all required flags are passed", func() {
-		it("lists droplet actions", func() {
+		it("lists server actions", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"actions",
 				"1111",
 			)
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(dropletActionsOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverActionsOutput), strings.TrimSpace(string(output)))
 		})
 	})
 })
 
 const (
-	dropletActionsOutput = `
+	serverActionsOutput = `
 ID    Status       Type    Started At                       Completed At                     Resource ID    Resource Type    Region
-2     completed            2014-11-14 16:37:39 +0000 UTC    2014-11-14 16:37:40 +0000 UTC    0              droplet
+2     completed            2014-11-14 16:37:39 +0000 UTC    2014-11-14 16:37:40 +0000 UTC    0              server
 `
-	dropletActionsResponse = `
+	serverActionsResponse = `
 {
     "actions": [
       {
@@ -80,7 +80,7 @@ ID    Status       Type    Started At                       Completed At        
         "started_at": "2014-11-14T16:37:39Z",
         "completed_at":  "2014-11-14T16:37:40Z",
         "status": "completed",
-        "resource_type": "droplet"
+        "resource_type": "server"
       }
     ]
 }`

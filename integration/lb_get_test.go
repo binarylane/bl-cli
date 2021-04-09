@@ -26,7 +26,7 @@ var _ = suite("compute/load-balancer/get", func(t *testing.T, when spec.G, it sp
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/load_balancers/find-lb-id":
+			case "/v2/load_balancers/1234":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -57,7 +57,7 @@ var _ = suite("compute/load-balancer/get", func(t *testing.T, when spec.G, it sp
 		)
 
 		baseArgs = []string{
-			"find-lb-id",
+			"1234",
 		}
 	})
 
@@ -86,13 +86,13 @@ var _ = suite("compute/load-balancer/get", func(t *testing.T, when spec.G, it sp
 
 const (
 	lbGetOutput = `
-ID            IP                 Name             Status    Created At              Algorithm      Region    Size        VPC UUID                                Tag    Droplet IDs    SSL      Sticky Sessions                                Health Check                                                                                                            Forwarding Rules
-find-lb-id    104.131.186.241    example-lb-01    new       2017-02-01T22:22:58Z    round_robin    syd      lb-small    00000000-0000-4000-8000-000000000000           3164445        false    type:none,cookie_name:,cookie_ttl_seconds:0    protocol:,port:0,path:,check_interval_seconds:0,response_timeout_seconds:0,healthy_threshold:0,unhealthy_threshold:0
+ID      IP                 Name             Status    Created At              Algorithm      Region    Size        VPC ID    Tag    Server IDs    SSL      Sticky Sessions                                Health Check                                                                                                            Forwarding Rules
+1234    104.131.186.241    example-lb-01    new       2017-02-01T22:22:58Z    round_robin    syd       lb-small    1001             3164445       false    type:none,cookie_name:,cookie_ttl_seconds:0    protocol:,port:0,path:,check_interval_seconds:0,response_timeout_seconds:0,healthy_threshold:0,unhealthy_threshold:0
 `
 	lbGetResponse = `
 {
   "load_balancer": {
-    "id": "find-lb-id",
+    "id": 1234,
     "name": "example-lb-01",
     "ip": "104.131.186.241",
     "algorithm": "round_robin",
@@ -121,7 +121,7 @@ find-lb-id    104.131.186.241    example-lb-01    new       2017-02-01T22:22:58Z
     "server_ids": [ 3164445 ],
     "redirect_http_to_https": false,
     "enable_proxy_protocol": false,
-    "vpc_uuid": "00000000-0000-4000-8000-000000000000"
+    "vpc_id": 1001
   }
 }`
 )

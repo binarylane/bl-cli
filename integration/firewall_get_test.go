@@ -90,6 +90,6 @@ const firewallGetResponse = `{
 }`
 
 const firewallGetOutput = `
-ID                                      Name             Status       Created At              Inbound Rules              Outbound Rules    Droplet IDs    Tags    Pending Changes
+ID                                      Name             Status       Created At              Inbound Rules              Outbound Rules    Server IDs    Tags    Pending Changes
 e4b9c960-d385-4950-84f3-d102162e6be5    test-firewall    succeeded    2019-10-24T20:30:26Z    protocol:tcp,ports:443,
 `

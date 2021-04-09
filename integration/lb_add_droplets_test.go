@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var _ = suite("compute/load-balancer/add-droplets", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/load-balancer/add-servers", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect *require.Assertions
 		server *httptest.Server
@@ -24,7 +24,7 @@ var _ = suite("compute/load-balancer/add-droplets", func(t *testing.T, when spec
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/load_balancers/my-lb-id/droplets":
+			case "/v2/load_balancers/1234/servers":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -39,7 +39,7 @@ var _ = suite("compute/load-balancer/add-droplets", func(t *testing.T, when spec
 				reqBody, err := ioutil.ReadAll(req.Body)
 				expect.NoError(err)
 
-				expect.JSONEq(lbAddDropletsRequest, string(reqBody))
+				expect.JSONEq(lbAddServersRequest, string(reqBody))
 
 				w.WriteHeader(http.StatusNoContent)
 			default:
@@ -54,15 +54,15 @@ var _ = suite("compute/load-balancer/add-droplets", func(t *testing.T, when spec
 	})
 
 	when("all required flags are passed", func() {
-		it("attaches droplets to a load balancer", func() {
+		it("attaches servers to a load balancer", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
 				"load-balancer",
-				"add-droplets",
-				"my-lb-id",
-				"--droplet-ids", "111,222,444",
+				"add-servers",
+				"1234",
+				"--server-ids", "111,222,444",
 			)
 
 			output, err := cmd.CombinedOutput()
@@ -72,4 +72,4 @@ var _ = suite("compute/load-balancer/add-droplets", func(t *testing.T, when spec
 	})
 })
 
-const lbAddDropletsRequest = `{"server_ids": [111,222,444]}`
+const lbAddServersRequest = `{"server_ids": [111,222,444]}`

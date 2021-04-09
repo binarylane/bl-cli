@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var _ = suite("compute/droplet/snapshots", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/server/snapshots", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect *require.Assertions
 		server *httptest.Server
@@ -36,7 +36,7 @@ var _ = suite("compute/droplet/snapshots", func(t *testing.T, when spec.G, it sp
 					return
 				}
 
-				w.Write([]byte(dropletSnapshotsResponse))
+				w.Write([]byte(serverSnapshotsResponse))
 			default:
 				dump, err := httputil.DumpRequest(req, true)
 				if err != nil {
@@ -49,30 +49,30 @@ var _ = suite("compute/droplet/snapshots", func(t *testing.T, when spec.G, it sp
 	})
 
 	when("all required flags are passed", func() {
-		it("lists droplet snapshots", func() {
+		it("lists server snapshots", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"snapshots",
 				"1111",
 			)
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(dropletSnapshotsOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverSnapshotsOutput), strings.TrimSpace(string(output)))
 		})
 	})
 })
 
 const (
-	dropletSnapshotsOutput = `
+	serverSnapshotsOutput = `
 ID      Name           Type        Distribution    Slug      Public    Min Disk
 4444    magic          snapshot    Fedora          slimey    false     25
 2222    other-magic    snapshot    Ubuntu          slimey    false     25
 `
-	dropletSnapshotsResponse = `
+	serverSnapshotsResponse = `
 {"snapshots": [
   {
     "id": 4444,

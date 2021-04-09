@@ -27,7 +27,7 @@ var _ = suite("compute/load-balancer/update", func(t *testing.T, when spec.G, it
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/load_balancers/updated-lb-id":
+			case "/v2/load_balancers/1234":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -63,13 +63,13 @@ var _ = suite("compute/load-balancer/update", func(t *testing.T, when spec.G, it
 		)
 
 		baseArgs = []string{
-			"updated-lb-id",
-			"--droplet-ids", "1,2,3,4",
+			"1234",
+			"--server-ids", "1,2,3,4",
 			"--name", "hello",
 			"--region", "the-best-region",
 			"--size", "lb-small",
 			"--tag-name", "some-tag",
-			"--vpc-uuid", "00000000-0000-4000-8000-000000000000",
+			"--vpc-id", "1001",
 		}
 	})
 
@@ -113,6 +113,6 @@ const (
     "sticky_sessions":{},
     "server_ids":[1,2,3,4],
     "tag":"some-tag",
-    "vpc_uuid": "00000000-0000-4000-8000-000000000000"
+    "vpc_id": 1001
 }`
 )

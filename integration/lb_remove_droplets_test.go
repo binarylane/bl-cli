@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var _ = suite("compute/load-balancer/remove-droplets", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/load-balancer/remove-servers", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect *require.Assertions
 		server *httptest.Server
@@ -24,7 +24,7 @@ var _ = suite("compute/load-balancer/remove-droplets", func(t *testing.T, when s
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/load_balancers/my-lb-id/droplets":
+			case "/v2/load_balancers/1234/servers":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -39,7 +39,7 @@ var _ = suite("compute/load-balancer/remove-droplets", func(t *testing.T, when s
 				reqBody, err := ioutil.ReadAll(req.Body)
 				expect.NoError(err)
 
-				expect.JSONEq(lbRemoveDropletsRequest, string(reqBody))
+				expect.JSONEq(lbRemoveServersRequest, string(reqBody))
 
 				w.WriteHeader(http.StatusNoContent)
 			default:
@@ -54,15 +54,15 @@ var _ = suite("compute/load-balancer/remove-droplets", func(t *testing.T, when s
 	})
 
 	when("all required flags are passed", func() {
-		it("removes droplets from a load balancer", func() {
+		it("removes servers from a load balancer", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
 				"load-balancer",
-				"remove-droplets",
-				"my-lb-id",
-				"--droplet-ids", "11,22,44",
+				"remove-servers",
+				"1234",
+				"--server-ids", "11,22,44",
 			)
 
 			output, err := cmd.CombinedOutput()
@@ -72,4 +72,4 @@ var _ = suite("compute/load-balancer/remove-droplets", func(t *testing.T, when s
 	})
 })
 
-const lbRemoveDropletsRequest = `{"server_ids": [11,22,44]}`
+const lbRemoveServersRequest = `{"server_ids": [11,22,44]}`

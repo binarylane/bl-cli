@@ -24,7 +24,7 @@ var _ = suite("compute/load-balancer/add-forwarding-rules", func(t *testing.T, w
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/load_balancers/that-lb-id/forwarding_rules":
+			case "/v2/load_balancers/1234/forwarding_rules":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -61,7 +61,7 @@ var _ = suite("compute/load-balancer/add-forwarding-rules", func(t *testing.T, w
 				"compute",
 				"load-balancer",
 				"add-forwarding-rules",
-				"that-lb-id",
+				"1234",
 				"--forwarding-rules", "entry_protocol:tcp,entry_port:3306,target_protocol:https,target_port:443",
 			)
 
