@@ -23,7 +23,7 @@ var _ = suite("vpcs/delete", func(t *testing.T, when spec.G, it spec.S) {
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/vpcs/vpc-uuid":
+			case "/v2/vpcs/1234":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -54,7 +54,7 @@ var _ = suite("vpcs/delete", func(t *testing.T, when spec.G, it spec.S) {
 				"-u", server.URL,
 				"vpcs",
 				"delete",
-				"vpc-uuid",
+				"1234",
 				"--force",
 			)
 

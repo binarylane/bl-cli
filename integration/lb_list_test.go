@@ -120,13 +120,13 @@ lb-two    104.131.188.204    example-lb-02    new       2017-02-01T20:44:58Z    
       "region": {
         "name": "Venus",
         "slug": "venus3",
-        "sizes": ["s-1vcpu-1gb"],
+        "sizes": ["std-min"],
         "features": ["private_networking"],
         "available": true
       },
       "vpc_uuid": "00000000-0000-4000-8000-000000000000",
       "tag": "",
-      "droplet_ids": [3164444],
+      "server_ids": [3164444],
       "redirect_http_to_https": false,
       "enable_proxy_protocol": false
     },
@@ -163,13 +163,13 @@ lb-two    104.131.188.204    example-lb-02    new       2017-02-01T20:44:58Z    
       "region": {
         "name": "Mars",
         "slug": "mars1",
-        "sizes": ["s-1vcpu-1gb"],
+        "sizes": ["std-min"],
         "features": ["install_agent"],
         "available": true
       },
       "vpc_uuid": "00000000-0000-4000-8000-000000000000",
       "tag": "",
-      "droplet_ids": [3164445],
+      "server_ids": [3164445],
       "redirect_http_to_https": false,
       "enable_proxy_protocol": false
     }

@@ -111,7 +111,7 @@ const (
 	"size":"lb-small",
     "health_check":{},
     "sticky_sessions":{},
-    "droplet_ids":[1,2,3,4],
+    "server_ids":[1,2,3,4],
     "tag":"some-tag",
     "vpc_uuid": "00000000-0000-4000-8000-000000000000"
 }`

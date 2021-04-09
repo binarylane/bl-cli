@@ -136,7 +136,7 @@ var _ = suite("compute/action", func(t *testing.T, when spec.G, it spec.S) {
 const (
 	computeActionGetOutput = `
 ID       Status       Type      Started At                       Completed At                     Resource ID    Resource Type    Region
-20202    completed    create    2014-11-14 16:29:21 +0000 UTC    2014-11-14 16:30:06 +0000 UTC    3164444        droplet          nyc3
+20202    completed    create    2014-11-14 16:29:21 +0000 UTC    2014-11-14 16:30:06 +0000 UTC    3164444        server           syd
 	`
 	computeActionGetResponse = `
 {
@@ -147,22 +147,22 @@ ID       Status       Type      Started At                       Completed At   
     "started_at": "2014-11-14T16:29:21Z",
     "completed_at": "2014-11-14T16:30:06Z",
     "resource_id": 3164444,
-    "resource_type": "droplet",
+    "resource_type": "server",
     "region": {
-      "name": "New York 3",
-      "slug": "nyc3",
-      "sizes": [ "s-24vcpu-128gb" ],
+      "name": "Sydney",
+      "slug": "syd",
+      "sizes": [ "std-min" ],
       "features": [ "image_transfer" ],
       "available": true
     },
-    "region_slug": "nyc3"
+    "region_slug": "syd"
   }
 }
 `
 	computeActionListOutput = `
 ID      Status       Type      Started At                       Completed At                     Resource ID    Resource Type    Region
-4444    completed    create    2014-11-14 16:29:21 +0000 UTC    2014-11-14 16:30:06 +0000 UTC    3164444        droplet          nyc3
-5555    completed    create    2014-11-14 16:29:21 +0000 UTC    2014-11-14 16:30:06 +0000 UTC    3164455        droplet          nyc3
+4444    completed    create    2014-11-14 16:29:21 +0000 UTC    2014-11-14 16:30:06 +0000 UTC    3164444        server           syd
+5555    completed    create    2014-11-14 16:29:21 +0000 UTC    2014-11-14 16:30:06 +0000 UTC    3164455        server           syd
 	`
 	computeActionListResponse = `
 {
@@ -174,15 +174,15 @@ ID      Status       Type      Started At                       Completed At    
       "started_at": "2014-11-14T16:29:21Z",
       "completed_at": "2014-11-14T16:30:06Z",
       "resource_id": 3164444,
-      "resource_type": "droplet",
+      "resource_type": "server",
       "region": {
-        "name": "New York 3",
-        "slug": "nyc3",
-        "sizes": [ "s-24vcpu-128gb" ],
+        "name": "Sydney",
+        "slug": "syd",
+        "sizes": [ "std-min" ],
         "features": [ "image_transfer" ],
         "available": true
       },
-      "region_slug": "nyc3"
+      "region_slug": "syd"
     },
     {
       "id": 5555,
@@ -191,15 +191,15 @@ ID      Status       Type      Started At                       Completed At    
       "started_at": "2014-11-14T16:29:21Z",
       "completed_at": "2014-11-14T16:30:06Z",
       "resource_id": 3164455,
-      "resource_type": "droplet",
+      "resource_type": "server",
       "region": {
-        "name": "New York 3",
-        "slug": "nyc3",
-        "sizes": [ "s-24vcpu-128gb" ],
+        "name": "Sydney",
+        "slug": "syd",
+        "sizes": [ "std-min" ],
         "features": [ "image_transfer" ],
         "available": true
       },
-      "region_slug": "nyc3"
+      "region_slug": "syd"
     }
   ],
   "links": {
@@ -212,7 +212,7 @@ ID      Status       Type      Started At                       Completed At    
 `
 	computeActionWaitOutput = `
 ID       Status       Type      Started At                       Completed At                     Resource ID    Resource Type    Region
-20202    completed    create    2014-11-14 16:29:21 +0000 UTC    2014-11-14 16:30:06 +0000 UTC    2222           droplet          nyc3
+20202    completed    create    2014-11-14 16:29:21 +0000 UTC    2014-11-14 16:30:06 +0000 UTC    2222           server           syd
 	`
 	computeActionWaitInProgressResponse = `
 {
@@ -222,15 +222,15 @@ ID       Status       Type      Started At                       Completed At   
     "type": "create",
     "started_at": "2014-11-14T16:29:21Z",
     "resource_id": 2222,
-    "resource_type": "droplet",
+    "resource_type": "server",
     "region": {
-      "name": "New York 3",
-      "slug": "nyc3",
-      "sizes": [ "s-24vcpu-128gb" ],
+      "name": "Sydney",
+      "slug": "syd",
+      "sizes": [ "std-min" ],
       "features": [ "image_transfer" ],
       "available": true
     },
-    "region_slug": "nyc3"
+    "region_slug": "syd"
   }
 }
 `
@@ -243,15 +243,15 @@ ID       Status       Type      Started At                       Completed At   
     "started_at": "2014-11-14T16:29:21Z",
     "completed_at": "2014-11-14T16:30:06Z",
     "resource_id": 2222,
-    "resource_type": "droplet",
+    "resource_type": "server",
     "region": {
-      "name": "New York 3",
-      "slug": "nyc3",
-      "sizes": [ "s-24vcpu-128gb" ],
+      "name": "Sydney",
+      "slug": "syd",
+      "sizes": [ "std-min" ],
       "features": [ "image_transfer" ],
       "available": true
     },
-    "region_slug": "nyc3"
+    "region_slug": "syd"
   }
 }
 `

@@ -24,7 +24,7 @@ var _ = suite("vpcs/get", func(t *testing.T, when spec.G, it spec.S) {
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			switch req.URL.Path {
-			case "/v2/vpcs/vpc-uuid":
+			case "/v2/vpcs/1234":
 				auth := req.Header.Get("Authorization")
 				if auth != "Bearer some-magic-token" {
 					w.WriteHeader(http.StatusUnauthorized)
@@ -55,7 +55,7 @@ var _ = suite("vpcs/get", func(t *testing.T, when spec.G, it spec.S) {
 				"-u", server.URL,
 				"vpcs",
 				"get",
-				"vpc-uuid",
+				"1234",
 			)
 
 			output, err := cmd.CombinedOutput()
@@ -71,7 +71,7 @@ var _ = suite("vpcs/get", func(t *testing.T, when spec.G, it spec.S) {
 				"-u", server.URL,
 				"vpcs",
 				"get",
-				"vpc-uuid",
+				"1234",
 				"--format", "Description",
 			)
 
@@ -84,8 +84,8 @@ var _ = suite("vpcs/get", func(t *testing.T, when spec.G, it spec.S) {
 
 const (
 	vpcsGetOutput = `
-ID                                      URN                                            Name          Description        IP Range         Region    Created At                       Default
-5a4981aa-9653-4bd1-bef5-d6bff52042e4    do:vpc:5a4981aa-9653-4bd1-bef5-d6bff52042e4    my-new-vpc    vpc description    10.10.10.0/24    nyc1      2020-03-13 19:20:47 +0000 UTC    false
+ID      Name          Description        IP Range         Region    Created At                       Default
+1234    my-new-vpc    vpc description    10.10.10.0/24    syd       2020-03-13 19:20:47 +0000 UTC    false
 `
 	vpcsGetFormattedOutput = `
 Description
@@ -94,11 +94,11 @@ vpc description
 	vpcsGetResponse = `
 {
   "vpc": {
-    "id": "5a4981aa-9653-4bd1-bef5-d6bff52042e4",
-    "urn": "do:vpc:5a4981aa-9653-4bd1-bef5-d6bff52042e4",
+    "id": 1234,
+    "urn": "bl:vpc:1234",
     "name": "my-new-vpc",
     "description": "vpc description",
-    "region": "nyc1",
+    "region": "syd",
     "ip_range": "10.10.10.0/24",
     "created_at": "2020-03-13T19:20:47Z",
     "default": false

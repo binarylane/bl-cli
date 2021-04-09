@@ -119,7 +119,7 @@ var _ = suite("compute/snapshot/list", func(t *testing.T, when spec.G, it spec.S
 				"snapshot",
 				"list",
 				"--region",
-				"nyc1",
+				"syd",
 			)
 
 			output, err := cmd.CombinedOutput()
@@ -175,7 +175,7 @@ var _ = suite("compute/snapshot/list", func(t *testing.T, when spec.G, it spec.S
 				"--resource",
 				"droplet",
 				"--region",
-				"nyc1",
+				"syd",
 			)
 
 			output, err := cmd.CombinedOutput()
@@ -191,9 +191,9 @@ const (
   "snapshots": [
     {
       "id": "0a343fac-eacf-11e9-b96b-0a58ac144633",
-      "name": "volume-nyc1-01-1570651053836",
+      "name": "volume-syd-01-1570651053836",
       "regions": [
-        "nyc1"
+        "syd"
       ],
       "created_at": "2019-10-09T19:57:36Z",
       "resource_id": "e2068b37-eace-11e9-85ad-0a58ac14430f",
@@ -217,9 +217,9 @@ const (
     },
     {
       "id": "53344211",
-      "name": "ubuntu-s-1vcpu-1gb-nyc1-01-1570651077842",
+      "name": "ubuntu-s-1vcpu-1gb-syd-01-1570651077842",
       "regions": [
-        "nyc1"
+        "syd"
       ],
       "created_at": "2019-10-09T19:57:59Z",
       "resource_id": "162347943",
@@ -253,9 +253,9 @@ const (
   "snapshots": [
     {
       "id": "53344211",
-      "name": "ubuntu-s-1vcpu-1gb-nyc1-01-1570651077842",
+      "name": "ubuntu-s-1vcpu-1gb-syd-01-1570651077842",
       "regions": [
-        "nyc1"
+        "syd"
       ],
       "created_at": "2019-10-09T19:57:59Z",
       "resource_id": "162347943",
@@ -289,9 +289,9 @@ const (
   "snapshots": [
     {
       "id": "0a343fac-eacf-11e9-b96b-0a58ac144633",
-      "name": "volume-nyc1-01-1570651053836",
+      "name": "volume-syd-01-1570651053836",
       "regions": [
-        "nyc1"
+        "syd"
       ],
       "created_at": "2019-10-09T19:57:36Z",
       "resource_id": "e2068b37-eace-11e9-85ad-0a58ac14430f",
@@ -322,9 +322,9 @@ const (
 `
 	snapshotListOutput = `
 ID                                      Name                                        Created at              Regions    Resource ID                             Resource Type    Min Disk Size    Size        Tags
-0a343fac-eacf-11e9-b96b-0a58ac144633    volume-nyc1-01-1570651053836                2019-10-09T19:57:36Z    [nyc1]     e2068b37-eace-11e9-85ad-0a58ac14430f    volume           100              0.00 GiB    
+0a343fac-eacf-11e9-b96b-0a58ac144633    volume-syd-01-1570651053836                2019-10-09T19:57:36Z    [nyc1]     e2068b37-eace-11e9-85ad-0a58ac14430f    volume           100              0.00 GiB    
 0e0adfa4-eacf-11e9-9e75-0a58ac14c13b    volume-lon1-01-1570651061232                2019-10-09T19:57:42Z    [lon1]     fcaf04e4-eace-11e9-a09f-0a58ac14c0f4    volume           100              0.00 GiB    
-53344211                                ubuntu-s-1vcpu-1gb-nyc1-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943                               droplet          25               1.01 GiB    
+53344211                                ubuntu-s-1vcpu-1gb-syd-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943                               droplet          25               1.01 GiB    
 53344231                                ubuntu-s-1vcpu-1gb-lon1-01-1570651124450    2019-10-09T19:58:50Z    [lon1]     162348013                               droplet          25               1.01 GiB
 `
 	snapshotListFormatOutput = `
@@ -335,28 +335,28 @@ ID                                      Resource Type
 53344231                                droplet
 `
 	snapshotListNoHeaderOutput = `
-0a343fac-eacf-11e9-b96b-0a58ac144633    volume-nyc1-01-1570651053836                2019-10-09T19:57:36Z    [nyc1]    e2068b37-eace-11e9-85ad-0a58ac14430f    volume     100    0.00 GiB    
+0a343fac-eacf-11e9-b96b-0a58ac144633    volume-syd-01-1570651053836                2019-10-09T19:57:36Z    [nyc1]    e2068b37-eace-11e9-85ad-0a58ac14430f    volume     100    0.00 GiB    
 0e0adfa4-eacf-11e9-9e75-0a58ac14c13b    volume-lon1-01-1570651061232                2019-10-09T19:57:42Z    [lon1]    fcaf04e4-eace-11e9-a09f-0a58ac14c0f4    volume     100    0.00 GiB    
-53344211                                ubuntu-s-1vcpu-1gb-nyc1-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]    162347943                               droplet    25     1.01 GiB    
+53344211                                ubuntu-s-1vcpu-1gb-syd-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]    162347943                               droplet    25     1.01 GiB    
 53344231                                ubuntu-s-1vcpu-1gb-lon1-01-1570651124450    2019-10-09T19:58:50Z    [lon1]    162348013                               droplet    25     1.01 GiB
 `
 	snapshotListRegionOutput = `
 ID                                      Name                                        Created at              Regions    Resource ID                             Resource Type    Min Disk Size    Size        Tags
-0a343fac-eacf-11e9-b96b-0a58ac144633    volume-nyc1-01-1570651053836                2019-10-09T19:57:36Z    [nyc1]     e2068b37-eace-11e9-85ad-0a58ac14430f    volume           100              0.00 GiB    
-53344211                                ubuntu-s-1vcpu-1gb-nyc1-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943                               droplet          25               1.01 GiB
+0a343fac-eacf-11e9-b96b-0a58ac144633    volume-syd-01-1570651053836                2019-10-09T19:57:36Z    [nyc1]     e2068b37-eace-11e9-85ad-0a58ac14430f    volume           100              0.00 GiB    
+53344211                                ubuntu-s-1vcpu-1gb-syd-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943                               droplet          25               1.01 GiB
 `
 	snapshotListDropletOutput = `
 ID          Name                                        Created at              Regions    Resource ID    Resource Type    Min Disk Size    Size        Tags
-53344211    ubuntu-s-1vcpu-1gb-nyc1-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943      droplet          25               1.01 GiB    
+53344211    ubuntu-s-1vcpu-1gb-syd-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943      droplet          25               1.01 GiB    
 53344231    ubuntu-s-1vcpu-1gb-lon1-01-1570651124450    2019-10-09T19:58:50Z    [lon1]     162348013      droplet          25               1.01 GiB
 `
 	snapshotListVolumeOutput = `
 ID                                      Name                            Created at              Regions    Resource ID                             Resource Type    Min Disk Size    Size        Tags
-0a343fac-eacf-11e9-b96b-0a58ac144633    volume-nyc1-01-1570651053836    2019-10-09T19:57:36Z    [nyc1]     e2068b37-eace-11e9-85ad-0a58ac14430f    volume           100              0.00 GiB    
+0a343fac-eacf-11e9-b96b-0a58ac144633    volume-syd-01-1570651053836    2019-10-09T19:57:36Z    [nyc1]     e2068b37-eace-11e9-85ad-0a58ac14430f    volume           100              0.00 GiB    
 0e0adfa4-eacf-11e9-9e75-0a58ac14c13b    volume-lon1-01-1570651061232    2019-10-09T19:57:42Z    [lon1]     fcaf04e4-eace-11e9-a09f-0a58ac14c0f4    volume           100              0.00 GiB
 `
 	snapshotListDropletRegionOutput = `
 ID          Name                                        Created at              Regions    Resource ID    Resource Type    Min Disk Size    Size        Tags
-53344211    ubuntu-s-1vcpu-1gb-nyc1-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943      droplet          25               1.01 GiB
+53344211    ubuntu-s-1vcpu-1gb-syd-01-1570651077842    2019-10-09T19:57:59Z    [nyc1]     162347943      droplet          25               1.01 GiB
 `
 )

@@ -89,7 +89,7 @@ exmaple.com    1800
     {
       "name": "example.com",
       "ttl": 1800,
-      "zone_file": "$ORIGIN example.com.\n$TTL 1800\nexample.com. IN SOA ns1.digitalocean.com. hostmaster.example.com. 1415982609 10800 3600 604800 1800"
+      "zone_file": "$ORIGIN example.com.\n$TTL 1800\nexample.com. IN SOA ns1.binarylane.com.au. hostmaster.example.com. 1415982609 10800 3600 604800 1800"
     },
     {
       "name": "exmaple.com",

@@ -15,11 +15,11 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-type dropletRequest struct {
+type serverRequest struct {
 	Name string `json:"name"`
 }
 
-var _ = suite("compute/droplet/create", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/server/create", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect  *require.Assertions
 		server  *httptest.Server
@@ -47,23 +47,23 @@ var _ = suite("compute/droplet/create", func(t *testing.T, when spec.G, it spec.
 				reqBody, err = ioutil.ReadAll(req.Body)
 				expect.NoError(err)
 
-				var dr dropletRequest
+				var dr serverRequest
 				err = json.Unmarshal(reqBody, &dr)
 				expect.NoError(err)
 
 				if dr.Name == "waiting-on-name" {
-					w.Write([]byte(dropletCreateWaitResponse))
+					w.Write([]byte(serverCreateWaitResponse))
 					return
 				}
 
-				w.Write([]byte(dropletCreateResponse))
-			case "/poll-for-droplet":
+				w.Write([]byte(serverCreateResponse))
+			case "/poll-for-server":
 				w.Write([]byte(actionCompletedResponse))
 			case "/v2/servers/777":
-				// we don't really need another fake droplet here
+				// we don't really need another fake server here
 				// since we've successfully tested all the behavior
 				// at this point
-				w.Write([]byte(dropletCreateResponse))
+				w.Write([]byte(serverCreateResponse))
 			default:
 				dump, err := httputil.DumpRequest(req, true)
 				if err != nil {
@@ -76,14 +76,14 @@ var _ = suite("compute/droplet/create", func(t *testing.T, when spec.G, it spec.
 	})
 
 	when("all required flags are passed", func() {
-		it("creates a droplet", func() {
+		it("creates a server", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"create",
-				"some-droplet-name",
+				"some-server-name",
 				"--image", "a-test-image",
 				"--region", "a-test-region",
 				"--size", "a-test-size",
@@ -92,7 +92,7 @@ var _ = suite("compute/droplet/create", func(t *testing.T, when spec.G, it spec.
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(dropletCreateOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverCreateOutput), strings.TrimSpace(string(output)))
 
 			request := &struct {
 				Name    string
@@ -105,7 +105,7 @@ var _ = suite("compute/droplet/create", func(t *testing.T, when spec.G, it spec.
 			err = json.Unmarshal(reqBody, request)
 			expect.NoError(err)
 
-			expect.Equal("some-droplet-name", request.Name)
+			expect.Equal("some-server-name", request.Name)
 			expect.Equal("a-test-image", request.Image)
 			expect.Equal("a-test-region", request.Region)
 			expect.Equal("a-test-size", request.Size)
@@ -114,12 +114,12 @@ var _ = suite("compute/droplet/create", func(t *testing.T, when spec.G, it spec.
 	})
 
 	when("the wait flag is passed", func() {
-		it("polls until the droplet is created", func() {
+		it("polls until the server is created", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-t", "some-magic-token",
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"create",
 				"waiting-on-name",
 				"--wait",
@@ -138,11 +138,11 @@ var _ = suite("compute/droplet/create", func(t *testing.T, when spec.G, it spec.
 			"-t", "some-magic-token",
 			"-u", "https://www.example.com",
 			"compute",
-			"droplet",
+			"server",
 			"create",
 		}
 
-		baseErr := `Error: (droplet.create%s) command is missing required arguments`
+		baseErr := `Error: (server.create%s) command is missing required arguments`
 
 		cases := []struct {
 			desc string
@@ -174,14 +174,14 @@ var _ = suite("compute/droplet/create", func(t *testing.T, when spec.G, it spec.
 })
 
 const (
-	dropletCreateResponse = `
+	serverCreateResponse = `
 {
-  "droplet": {
+  "server": {
     "id": 1111,
     "memory": 12,
     "vcpus": 13,
     "disk": 15,
-    "name": "some-droplet-name",
+    "name": "some-server-name",
     "networks": {
       "v4": [
         {"type": "public", "ip_address": "1.2.3.4"},
@@ -203,14 +203,14 @@ const (
 
   }
 }`
-	dropletCreateWaitResponse = `
-{"droplet": {"id": 777}, "links": {"actions": [{"id":1, "rel":"create", "href":"poll-for-droplet"}]}}
+	serverCreateWaitResponse = `
+{"server": {"id": 777}, "links": {"actions": [{"id":1, "rel":"create", "href":"poll-for-server"}]}}
 `
 	actionCompletedResponse = `
 {"action": "id": 1, "status": "completed"}
 `
-	dropletCreateOutput = `
+	serverCreateOutput = `
 ID      Name                 Public IPv4    Private IPv4    Public IPv6    Memory    VCPUs    Disk    Region              Image                          VPC UUID                                Status    Tags    Features    Volumes
-1111    some-droplet-name    1.2.3.4        7.7.7.7                        12        13       15      some-region-slug    some-distro some-image-name    00000000-0000-4000-8000-000000000000    active    yes     remotes     some-volume-id
+1111    some-server-name    1.2.3.4        7.7.7.7                        12        13       15      some-region-slug    some-distro some-image-name    00000000-0000-4000-8000-000000000000    active    yes     remotes     some-volume-id
 `
 )

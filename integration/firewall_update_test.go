@@ -91,7 +91,7 @@ e4b9c960-d385-4950-84f3-d102162e6be5    updated-test-firewall    succeeded    20
 	"sources":{}
   }],
   "outbound_rules":null,
-  "droplet_ids":[],
+  "server_ids":[],
   "tags":[]
 }`
 
@@ -107,7 +107,7 @@ e4b9c960-d385-4950-84f3-d102162e6be5    updated-test-firewall    succeeded    20
 	}],
 	"outbound_rules":[],
 	"created_at":"2019-10-24T20:30:26Z",
-	"droplet_ids":[],
+	"server_ids":[],
 	"tags":[],
 	"pending_changes":[]
   }

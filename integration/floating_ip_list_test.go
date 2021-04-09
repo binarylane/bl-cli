@@ -74,8 +74,8 @@ var _ = suite("compute/floating-ip/list", func(t *testing.T, when spec.G, it spe
 const (
 	floatingIPListOutput = `
 IP         Region    Droplet ID    Droplet Name
-8.8.8.8    nyc3      8888          hello
-1.1.1.1    nyc3      1111
+8.8.8.8    syd      8888          hello
+1.1.1.1    syd      1111
 `
 	floatingIPListResponse = `
 {
@@ -84,9 +84,9 @@ IP         Region    Droplet ID    Droplet Name
       "ip": "8.8.8.8",
       "droplet": {"id": 8888, "name": "hello"},
       "region": {
-        "name": "New York 3",
-        "slug": "nyc3",
-        "sizes": [ "s-1vcpu-1gb" ],
+        "name": "Sydney",
+        "slug": "syd",
+        "sizes": [ "std-min" ],
         "features": [ "metadata" ],
         "available": true
       },
@@ -96,9 +96,9 @@ IP         Region    Droplet ID    Droplet Name
       "ip": "1.1.1.1",
       "droplet": {"id": 1111},
       "region": {
-        "name": "New York 3",
-        "slug": "nyc3",
-        "sizes": [ "s-1vcpu-1gb" ],
+        "name": "Sydney",
+        "slug": "syd",
+        "sizes": [ "std-min" ],
         "features": [ "metadata" ],
         "available": true
       },

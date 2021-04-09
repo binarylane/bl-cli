@@ -58,7 +58,7 @@ var _ = suite("compute/volume-action", func(t *testing.T, when spec.G, it spec.S
 				reqBody, err := ioutil.ReadAll(req.Body)
 				expect.NoError(err)
 
-				expect.JSONEq(`{"droplet_id":11,"type":"attach"}`, string(reqBody))
+				expect.JSONEq(`{"server_id":11,"type":"attach"}`, string(reqBody))
 
 				w.Write([]byte(volumeActionResponse))
 			case "/v2/volumes/13/actions":
@@ -76,7 +76,7 @@ var _ = suite("compute/volume-action", func(t *testing.T, when spec.G, it spec.S
 				reqBody, err := ioutil.ReadAll(req.Body)
 				expect.NoError(err)
 
-				expect.JSONEq(`{"droplet_id":14,"type":"detach"}`, string(reqBody))
+				expect.JSONEq(`{"server_id":14,"type":"detach"}`, string(reqBody))
 
 				w.Write([]byte(volumeActionResponse))
 			default:
@@ -149,7 +149,7 @@ var _ = suite("compute/volume-action", func(t *testing.T, when spec.G, it spec.S
 const (
 	volumeActionOutput = `
 ID          Status         Type             Started At                       Completed At    Resource ID    Resource Type    Region
-68212773    in-progress    detach_volume    2015-10-15 17:46:15 +0000 UTC    <nil>           0              backend          nyc1
+68212773    in-progress    detach_volume    2015-10-15 17:46:15 +0000 UTC    <nil>           0              backend          syd
 	`
 	volumeActionResponse = `
 {
@@ -162,13 +162,13 @@ ID          Status         Type             Started At                       Com
     "resource_id": null,
     "resource_type": "backend",
     "region": {
-      "name": "New York 1",
-      "slug": "nyc1",
-      "sizes": [ "s-32vcpu-192gb" ],
+      "name": "Sydney",
+      "slug": "syd",
+      "sizes": [ "std-min" ],
       "features": [ "metadata" ],
       "available": true
     },
-    "region_slug": "nyc1"
+    "region_slug": "syd"
   }
 }
 `

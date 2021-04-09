@@ -20,7 +20,7 @@ type request struct {
 	body   string
 }
 
-var _ = suite("compute/droplet-action", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/server-action", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect *require.Assertions
 		server *httptest.Server
@@ -78,14 +78,14 @@ var _ = suite("compute/droplet-action", func(t *testing.T, when spec.G, it spec.
 				expect.JSONEq(matchRequest.body, string(reqBody))
 			}
 
-			w.Write([]byte(dropletActionResponse))
+			w.Write([]byte(serverActionResponse))
 		}))
 	})
 
 	cmd := exec.Command(builtBinaryPath,
 		"-t", "some-magic-token",
 		"compute",
-		"droplet-action",
+		"server-action",
 	)
 
 	cases := []struct {
@@ -103,7 +103,7 @@ var _ = suite("compute/droplet-action", func(t *testing.T, when spec.G, it spec.
 		{desc: "power on", args: []string{"power-on", "045"}},
 		{desc: "reboot", args: []string{"reboot", "999"}},
 		{desc: "rebuild", args: []string{"rebuild", "4743", "--image", "9999"}},
-		{desc: "rename", args: []string{"rename", "112", "--droplet-name", "yes"}},
+		{desc: "rename", args: []string{"rename", "112", "--server-name", "yes"}},
 		{desc: "resize", args: []string{"resize", "884", "--resize-disk", "--size", "bigger"}},
 		{desc: "restore", args: []string{"restore", "383", "--image-id", "1234"}},
 		{desc: "shutdown", args: []string{"shutdown", "34"}},
@@ -125,18 +125,18 @@ var _ = suite("compute/droplet-action", func(t *testing.T, when spec.G, it spec.
 
 				output, err := cmd.CombinedOutput()
 				expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-				expect.Equal(strings.TrimSpace(dropletActionOutput), strings.TrimSpace(string(output)))
+				expect.Equal(strings.TrimSpace(serverActionOutput), strings.TrimSpace(string(output)))
 			})
 		})
 	}
 })
 
 const (
-	dropletActionOutput = `
+	serverActionOutput = `
 ID          Status         Type              Started At                       Completed At    Resource ID    Resource Type    Region
-36804745    in-progress    enable_backups    2014-11-14 16:30:56 +0000 UTC    <nil>           3164450        droplet          nyc3
+36804745    in-progress    enable_backups    2014-11-14 16:30:56 +0000 UTC    <nil>           3164450        server           syd
 	`
-	dropletActionResponse = `
+	serverActionResponse = `
 {
   "action": {
     "id": 36804745,
@@ -145,15 +145,15 @@ ID          Status         Type              Started At                       Co
     "started_at": "2014-11-14T16:30:56Z",
     "completed_at": null,
     "resource_id": 3164450,
-    "resource_type": "droplet",
+    "resource_type": "server",
     "region": {
-      "name": "New York 3",
-      "slug": "nyc3",
-      "sizes": [ "s-24vcpu-128gb" ],
+      "name": "Sydney",
+      "slug": "syd",
+      "sizes": [ "std-min" ],
       "features": [ "image_transfer" ],
       "available": true
     },
-    "region_slug": "nyc3"
+    "region_slug": "syd"
   }
 }
 `

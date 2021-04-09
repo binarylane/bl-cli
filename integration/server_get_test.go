@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-var _ = suite("compute/droplet/get", func(t *testing.T, when spec.G, it spec.S) {
+var _ = suite("compute/server/get", func(t *testing.T, when spec.G, it spec.S) {
 	var (
 		expect     *require.Assertions
 		server     *httptest.Server
@@ -31,7 +31,7 @@ var _ = suite("compute/droplet/get", func(t *testing.T, when spec.G, it spec.S) 
 
 		configPath = filepath.Join(dir, "config.yaml")
 
-		err = ioutil.WriteFile(configPath, []byte(dropletGetConfig), 0644)
+		err = ioutil.WriteFile(configPath, []byte(serverGetConfig), 0644)
 		expect.NoError(err)
 
 		server = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
@@ -48,7 +48,7 @@ var _ = suite("compute/droplet/get", func(t *testing.T, when spec.G, it spec.S) 
 					return
 				}
 
-				w.Write([]byte(dropletGetResponse))
+				w.Write([]byte(serverGetResponse))
 			default:
 				dump, err := httputil.DumpRequest(req, true)
 				if err != nil {
@@ -66,19 +66,19 @@ var _ = suite("compute/droplet/get", func(t *testing.T, when spec.G, it spec.S) 
 	})
 
 	when("all required flags are passed", func() {
-		it("gets the specified droplet ID", func() {
+		it("gets the specified server ID", func() {
 			cmd := exec.Command(builtBinaryPath,
 				"-c", configPath,
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"get",
 				"5555",
 			)
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(dropletGetOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverGetOutput), strings.TrimSpace(string(output)))
 		})
 	})
 
@@ -88,7 +88,7 @@ var _ = suite("compute/droplet/get", func(t *testing.T, when spec.G, it spec.S) 
 				"-c", configPath,
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"get",
 				"5555",
 				"--format", "ID,Name",
@@ -96,7 +96,7 @@ var _ = suite("compute/droplet/get", func(t *testing.T, when spec.G, it spec.S) 
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(dropletGetFormatOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverGetFormatOutput), strings.TrimSpace(string(output)))
 		})
 	})
 
@@ -106,7 +106,7 @@ var _ = suite("compute/droplet/get", func(t *testing.T, when spec.G, it spec.S) 
 				"-c", configPath,
 				"-u", server.URL,
 				"compute",
-				"droplet",
+				"server",
 				"get",
 				"5555",
 				"--template", "this is magic {{.ID}} can be shown with {{.Region.Slug}}",
@@ -114,33 +114,33 @@ var _ = suite("compute/droplet/get", func(t *testing.T, when spec.G, it spec.S) 
 
 			output, err := cmd.CombinedOutput()
 			expect.NoError(err, fmt.Sprintf("received error output: %s", output))
-			expect.Equal(strings.TrimSpace(dropletGetTemplateOutput), strings.TrimSpace(string(output)))
+			expect.Equal(strings.TrimSpace(serverGetTemplateOutput), strings.TrimSpace(string(output)))
 		})
 	})
 })
 
 const (
-	dropletGetConfig = `
+	serverGetConfig = `
 ---
 access-token: special-broken
 `
-	dropletGetOutput = `
-ID      Name                 Public IPv4    Private IPv4    Public IPv6    Memory    VCPUs    Disk    Region              Image                          VPC UUID    Status    Tags    Features    Volumes
-5555    some-droplet-name                                                  0         0        0       some-region-slug    some-distro some-image-name                active    yes     remotes     some-volume-id
+	serverGetOutput = `
+ID      Name                Public IPv4    Private IPv4    Public IPv6    Memory    VCPUs    Disk    Region              Image                          VPC UUID    Status    Tags    Features    Volumes
+5555    some-server-name                                                  0         0        0       some-region-slug    some-distro some-image-name                active    yes     remotes     some-volume-id
 `
-	dropletGetFormatOutput = `
+	serverGetFormatOutput = `
 ID      Name
-5555    some-droplet-name
+5555    some-server-name
 `
 
-	dropletGetTemplateOutput = `
+	serverGetTemplateOutput = `
 this is magic 5555 can be shown with some-region-slug
 `
-	dropletGetResponse = `
+	serverGetResponse = `
 {
-  "droplet": {
+  "server": {
     "id": 5555,
-    "name": "some-droplet-name",
+    "name": "some-server-name",
     "image": {
       "distribution": "some-distro",
       "name": "some-image-name"

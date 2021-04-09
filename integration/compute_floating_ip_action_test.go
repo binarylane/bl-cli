@@ -71,7 +71,7 @@ var _ = suite("compute/floating-ip-action", func(t *testing.T, when spec.G, it s
 				reqBody, err := ioutil.ReadAll(req.Body)
 				expect.NoError(err)
 
-				expect.JSONEq(`{"droplet_id":1414,"type":"assign"}`, string(reqBody))
+				expect.JSONEq(`{"server_id":1414,"type":"assign"}`, string(reqBody))
 
 				w.Write([]byte(floatingIPActionResponse))
 			default:
@@ -142,7 +142,7 @@ var _ = suite("compute/floating-ip-action", func(t *testing.T, when spec.G, it s
 const (
 	floatingIPActionOutput = `
 ID          Status         Type         Started At                       Completed At    Resource ID    Resource Type    Region
-68212728    in-progress    assign_ip    2015-10-15 17:45:44 +0000 UTC    <nil>           758603823      floating_ip      nyc3
+68212728    in-progress    assign_ip    2015-10-15 17:45:44 +0000 UTC    <nil>           758603823      floating_ip      syd
 	`
 	floatingIPActionResponse = `
 {
@@ -155,13 +155,13 @@ ID          Status         Type         Started At                       Complet
     "resource_id": 758603823,
     "resource_type": "floating_ip",
     "region": {
-      "name": "New York 3",
-      "slug": "nyc3",
-      "sizes": [ "s-32vcpu-192gb" ],
+      "name": "Sydney",
+      "slug": "syd",
+      "sizes": [ "std-min" ],
       "features": [ "metadata" ],
       "available": true
     },
-    "region_slug": "nyc3"
+    "region_slug": "syd"
   }
 }
 `

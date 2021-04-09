@@ -80,7 +80,7 @@ ID         Name         Type    Distribution    Slug                Public    Mi
     "distribution": "Ubuntu",
     "slug": "ubuntu-16-04-x64",
     "public": true,
-    "regions": [ "ams3", "nyc3" ],
+    "regions": [ "ams3", "syd" ],
     "created_at": "2014-10-17T20:24:33Z",
     "min_disk_size": 20,
     "size_gigabytes": 2.34,

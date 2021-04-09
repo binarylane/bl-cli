@@ -109,7 +109,7 @@ var _ = suite("compute/image-action", func(t *testing.T, when spec.G, it spec.S)
 const (
 	imageActionOutput = `
 ID          Status         Type        Started At                       Completed At    Resource ID    Resource Type    Region
-36805527    in-progress    transfer    2014-11-14 16:42:45 +0000 UTC    <nil>           7938269        image            nyc3
+36805527    in-progress    transfer    2014-11-14 16:42:45 +0000 UTC    <nil>           7938269        image            syd
 	`
 	imageActionResponse = `
 {
@@ -122,13 +122,13 @@ ID          Status         Type        Started At                       Complete
     "resource_id": 7938269,
     "resource_type": "image",
     "region": {
-      "name": "New York 3",
-      "slug": "nyc3",
-      "sizes": [ "s-24vcpu-128gb" ],
+      "name": "Sydney",
+      "slug": "syd",
+      "sizes": [ "std-min" ],
       "features": [ "image_transfer" ],
       "available": true
     },
-    "region_slug": "nyc3"
+    "region_slug": "syd"
   }
 }
 `

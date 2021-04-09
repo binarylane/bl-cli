@@ -72,4 +72,4 @@ var _ = suite("compute/load-balancer/add-droplets", func(t *testing.T, when spec
 	})
 })
 
-const lbAddDropletsRequest = `{"droplet_ids": [111,222,444]}`
+const lbAddDropletsRequest = `{"server_ids": [111,222,444]}`

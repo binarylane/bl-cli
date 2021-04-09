@@ -72,4 +72,4 @@ var _ = suite("compute/load-balancer/remove-droplets", func(t *testing.T, when s
 	})
 })
 
-const lbRemoveDropletsRequest = `{"droplet_ids": [11,22,44]}`
+const lbRemoveDropletsRequest = `{"server_ids": [11,22,44]}`

@@ -93,16 +93,16 @@ var _ = suite("vpcs/update", func(t *testing.T, when spec.G, it spec.S) {
 const (
 	vpcsUpdateOutput = `
 ID                                      URN                                            Name               Description          IP Range         Region    Created At                       Default
-5a4981aa-9653-4bd1-bef5-d6bff52042e4    do:vpc:5a4981aa-9653-4bd1-bef5-d6bff52042e4    renamed-new-vpc    A new description    10.10.10.0/24    nyc1      2020-03-13 19:20:47 +0000 UTC    false
+5a4981aa-9653-4bd1-bef5-d6bff52042e4    bl:vpc:5a4981aa-9653-4bd1-bef5-d6bff52042e4    renamed-new-vpc    A new description    10.10.10.0/24    syd      2020-03-13 19:20:47 +0000 UTC    false
 `
 	vpcsUpdateResponse = `
 {
   "vpc": {
     "id": "5a4981aa-9653-4bd1-bef5-d6bff52042e4",
-    "urn": "do:vpc:5a4981aa-9653-4bd1-bef5-d6bff52042e4",
+    "urn": "bl:vpc:5a4981aa-9653-4bd1-bef5-d6bff52042e4",
     "name": "renamed-new-vpc",
     "description": "A new description",
-    "region": "nyc1",
+    "region": "syd",
     "ip_range": "10.10.10.0/24",
     "created_at": "2020-03-13T19:20:47Z",
     "default": false

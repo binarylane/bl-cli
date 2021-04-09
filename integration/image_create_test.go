@@ -56,7 +56,7 @@ var _ = suite("compute/image/create", func(t *testing.T, when spec.G, it spec.S)
 				"image",
 				"create", "ubuntu-18.04-minimal",
 				"--image-url", "http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img",
-				"--region", "nyc3",
+				"--region", "syd",
 			)
 
 			output, err := cmd.CombinedOutput()
@@ -108,7 +108,7 @@ var _ = suite("compute/image/create", func(t *testing.T, when spec.G, it spec.S)
 				append(base, []string{
 					"ubuntu-18.04-minimal",
 					"--image-description", "an ubuntu custom minimal image",
-					"--region", "nyc3",
+					"--region", "syd",
 				}...),
 			},
 		}

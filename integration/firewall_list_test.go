@@ -81,7 +81,7 @@ const firewallListResponse = `{
 	}],
 	"outbound_rules":[],
 	"created_at":"2019-10-24T20:30:26Z",
-	"droplet_ids":[],
+	"server_ids":[],
 	"tags":[],
 	"pending_changes":[]
   }]

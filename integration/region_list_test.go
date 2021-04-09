@@ -104,15 +104,15 @@ const (
 {
   "regions": [
     {
-      "name": "New York 1",
-      "slug": "nyc1",
+      "name": "Sydney",
+      "slug": "syd",
       "features": [
         "private_networking",
         "backups"
       ],
       "available": true,
       "sizes": [
-        "s-1vcpu-1gb"
+        "std-min"
       ]
     },
     {
@@ -124,7 +124,7 @@ const (
       ],
       "available": true,
       "sizes": [
-        "s-1vcpu-1gb"
+        "std-min"
       ]
     }
   ],
@@ -136,16 +136,16 @@ const (
 `
 	regionListOutput = `
 Slug    Name               Available
-nyc1    New York 1         true
+syd    Sydney         true
 sfo1    San Francisco 1    true
 `
 	regionListFormatOutput = `
 Slug
-nyc1
+syd
 sfo1
 `
 	regionListNoHeaderOutput = `
-nyc1    New York 1         true
+syd    Sydney         true
 sfo1    San Francisco 1    true
 `
 )

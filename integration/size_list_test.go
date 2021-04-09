@@ -112,12 +112,12 @@ const (
       "price_monthly": 5,
       "price_hourly": 0.007439999841153622,
       "regions": [
-        "nyc1"
+        "syd"
       ],
       "available": true
     },
     {
-      "slug": "s-1vcpu-1gb",
+      "slug": "std-min",
       "memory": 1024,
       "vcpus": 1,
       "disk": 25,
@@ -125,7 +125,7 @@ const (
       "price_monthly": 5,
       "price_hourly": 0.007439999841153622,
       "regions": [
-        "nyc1"
+        "syd"
       ],
       "available": true
     }
@@ -137,18 +137,18 @@ const (
 }
 `
 	sizeListOutput = `
-Slug           Memory    VCPUs    Disk    Price Monthly    Price Hourly
-512mb          512       1        20      5.00             0.007440
-s-1vcpu-1gb    1024      1        25      5.00             0.007440
+Slug       Memory    VCPUs    Disk    Price Monthly    Price Hourly
+512mb      512       1        20      5.00             0.007440
+std-min    1024      1        25      5.00             0.007440
 `
 	sizeListFormatOutput = `
-Slug           Price Monthly
-512mb          5.00
-s-1vcpu-1gb    5.00
+Slug       Price Monthly
+512mb      5.00
+std-min    5.00
 
 `
 	sizeListNoHeaderOutput = `
-512mb          512     1    20    5.00    0.007440
-s-1vcpu-1gb    1024    1    25    5.00    0.007440
+512mb      512     1    20    5.00    0.007440
+std-min    1024    1    25    5.00    0.007440
 `
 )

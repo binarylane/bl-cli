@@ -105,34 +105,34 @@ var _ = suite("projects/resources/list", func(t *testing.T, when spec.G, it spec
 const (
 	projcetsResourcesListOutput = `
 URN                Assigned At             Status
-do:droplet:1       2018-09-28T19:26:37Z    ok
-do:floatingip:1    2018-09-28T19:26:38Z    ok
+bl:droplet:1       2018-09-28T19:26:37Z    ok
+bl:floatingip:1    2018-09-28T19:26:38Z    ok
 `
 	projcetsResourcesListNoHeaderOutput = `
-do:droplet:1       2018-09-28T19:26:37Z    ok
-do:floatingip:1    2018-09-28T19:26:38Z    ok
+bl:droplet:1       2018-09-28T19:26:37Z    ok
+bl:floatingip:1    2018-09-28T19:26:38Z    ok
 `
 	projcetsResourcesListFormatOutput = `
 URN                Status
-do:droplet:1       ok
-do:floatingip:1    ok
+bl:droplet:1       ok
+bl:floatingip:1    ok
 `
 	projectsResourcesListResponse = `
 {
   "resources": [
     {
-      "urn": "do:droplet:1",
+      "urn": "bl:droplet:1",
       "assigned_at": "2018-09-28T19:26:37Z",
       "links": {
-        "self": "https://api.digitalocean.com/v2/servers/1"
+        "self": "https://api.binarylane.com.au/v2/servers/1"
       },
       "status": "ok"
     },
     {
-      "urn": "do:floatingip:1",
+      "urn": "bl:floatingip:1",
       "assigned_at": "2018-09-28T19:26:38Z",
       "links": {
-        "self": "https://api.digitalocean.com/v2/floating_ips/1"
+        "self": "https://api.binarylane.com.au/v2/floating_ips/1"
       },
       "status": "ok"
     }

@@ -126,9 +126,9 @@ const (
 	accountGetResponse = `
 {
   "account": {
-    "droplet_limit": 25,
+    "server_limit": 25,
     "floating_ip_limit": 5,
-    "email": "sammy@digitalocean.com",
+    "email": "test@binarylane.com.au",
     "uuid": "b6fr89dbf6d9156cace5f3c78dc9851d957381ef",
     "email_verified": true,
     "status": "active",
@@ -136,8 +136,8 @@ const (
   }
 }`
 	accountOutput = `
-Email                     Droplet Limit    Email Verified    UUID                                        Status
-sammy@digitalocean.com    25               true              b6fr89dbf6d9156cace5f3c78dc9851d957381ef    active
+Email                     Server Limit    Email Verified    UUID                                        Status
+test@binarylane.com.au    25              true              b6fr89dbf6d9156cace5f3c78dc9851d957381ef    active
 `
 
 	ratelimitOutput = `
