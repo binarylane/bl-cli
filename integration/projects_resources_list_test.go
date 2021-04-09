@@ -105,23 +105,23 @@ var _ = suite("projects/resources/list", func(t *testing.T, when spec.G, it spec
 const (
 	projcetsResourcesListOutput = `
 URN                Assigned At             Status
-bl:droplet:1       2018-09-28T19:26:37Z    ok
+bl:server:1        2018-09-28T19:26:37Z    ok
 bl:floatingip:1    2018-09-28T19:26:38Z    ok
 `
 	projcetsResourcesListNoHeaderOutput = `
-bl:droplet:1       2018-09-28T19:26:37Z    ok
+bl:server:1        2018-09-28T19:26:37Z    ok
 bl:floatingip:1    2018-09-28T19:26:38Z    ok
 `
 	projcetsResourcesListFormatOutput = `
 URN                Status
-bl:droplet:1       ok
+bl:server:1        ok
 bl:floatingip:1    ok
 `
 	projectsResourcesListResponse = `
 {
   "resources": [
     {
-      "urn": "bl:droplet:1",
+      "urn": "bl:server:1",
       "assigned_at": "2018-09-28T19:26:37Z",
       "links": {
         "self": "https://api.binarylane.com.au/v2/servers/1"
