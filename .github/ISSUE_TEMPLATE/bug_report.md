@@ -14,7 +14,7 @@ facing including the steps to reproduce the issue. -->
 
 **Environment:**
 <!-- Please provide the following information: -->
- - doctl version: <!-- The output of `doctl version` -->
+ - bl-cli version: <!-- The output of `bl version` -->
  - OS: <!-- E.g. macOS Catalina, Ubuntu 19.04, etc -->
  - Installation method: <!-- E.g. Installed from source, Homebrew, Snap package, Docker, etc -->
 
@@ -23,6 +23,6 @@ facing including the steps to reproduce the issue. -->
 <!-- Add any additional details that may be important for us to know.
 
 Tip: Running a command with the `--trace` flag will display details about the
-requests made to the DigitalOcean API and can help with debugging. Remember to
+requests made to the BinaryLane API and can help with debugging. Remember to
 check the output for any sensitive information before posting.
 -->
