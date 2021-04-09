@@ -10,6 +10,6 @@ RUN apk add --update \
 
 WORKDIR /app
 
-COPY doctl .
+COPY bl .
 
-ENTRYPOINT ["./doctl"]
+ENTRYPOINT ["./bl"]

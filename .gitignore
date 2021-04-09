@@ -15,10 +15,3 @@ _vendor-*
 
 # Build artifacts
 Dockerfile-e
-
-# Snapcraft
-parts/
-prime/
-stage/
-doctl_v*.snap
-snap/.snapcraft/

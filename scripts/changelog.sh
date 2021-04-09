@@ -2,8 +2,8 @@
 
 set -o pipefail
 
-tfile=$(mktemp /tmp/doctl-CHANGELOG-XXXXXX)
-github-changelog-generator -org digitalocean -repo doctl >"$tfile"
+tfile=$(mktemp /tmp/bl-CHANGELOG-XXXXXX)
+github-changelog-generator -org binarylane -repo bl-cli >"$tfile"
 
 GO111MODULE=on go mod tidy
 

@@ -195,7 +195,7 @@ On Linux, `bl-cli` saves its configuration as `${XDG_CONFIG_HOME}/bl/config.yaml
 
 The configuration file is automatically created and populated with default properties when you authenticate with `bl-cli` for the first time. The typical format for a property is `category.command.sub-command.flag: value`. For example, the property for the `force` flag with tag deletion is `tag.delete.force`.
 
-To change the default SSH user used when connecting to a Droplet with `bl-cli`, look for the `compute.ssh.ssh-user` property and change the value after the colon. In this example, we changed it to the username **admin**.
+To change the default SSH user used when connecting to a server with `bl-cli`, look for the `compute.ssh.ssh-user` property and change the value after the colon. In this example, we changed it to the username **admin**.
 
 ```
 . . .
