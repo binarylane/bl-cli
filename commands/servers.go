@@ -70,7 +70,7 @@ func Server() *Command {
 
 	cmdServerCreate := CmdBuilder(cmd, RunServerCreate, "create <server-name>...", "Create a new Server", serverCreateLongDesc, Writer,
 		aliasOpt("c"), displayerType(&displayers.Server{}))
-	AddStringSliceFlag(cmdServerCreate, blcli.ArgSSHKeys, "", []string{}, "A list of SSH key fingerprints or IDs of the SSH keys to embed in the Server's root account upon creation")
+	AddStringSliceFlag(cmdServerCreate, blcli.ArgSSHKeys, "", []string{}, "A list of SSH key fingerprints or IDs of the SSH keys to embed in the Server's root account upon creation. If not provided, your configured default keys will be installed. Specify 'none' to have no keys installed")
 	AddStringFlag(cmdServerCreate, blcli.ArgUserData, "", "", "User-data to configure the Server on first boot")
 	AddStringFlag(cmdServerCreate, blcli.ArgUserDataFile, "", "", "The path to a file containing user-data to configure the Server on first boot")
 	AddBoolFlag(cmdServerCreate, blcli.ArgCommandWait, "", false, "Wait for Server creation to complete before returning")
@@ -385,6 +385,10 @@ func RunServerUntag(c *CmdConfig) error {
 func extractSSHKeys(keys []string) []binarylane.ServerCreateSSHKey {
 	sshKeys := []binarylane.ServerCreateSSHKey{}
 
+	if len(keys) == 0 {
+		return nil
+	}
+
 	for _, k := range keys {
 		if i, err := strconv.Atoi(k); err == nil {
 			if i > 0 {
@@ -393,7 +397,7 @@ func extractSSHKeys(keys []string) []binarylane.ServerCreateSSHKey {
 			continue
 		}
 
-		if k != "" {
+		if k != "" && k != "none" {
 			sshKeys = append(sshKeys, binarylane.ServerCreateSSHKey{Fingerprint: k})
 		}
 	}
